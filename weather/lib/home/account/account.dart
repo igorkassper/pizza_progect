@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/autification/Register.dart';
+import 'package:weather/home/account/account_email.dart';
+import 'package:weather/home/account/account_rename.dart';
 
 Widget account(var context){ 
   return Center(
@@ -170,7 +172,16 @@ Widget account(var context){
                       visualDensity: VisualDensity.compact,
                       minimumSize: Size.zero,
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context){
+                              return Account_rename();
+                            }
+                          )
+                        );
+                    },
                     child:  Icon(
                       Icons.edit_outlined,
                       size: 17,
@@ -222,7 +233,16 @@ Widget account(var context){
                       visualDensity: VisualDensity.compact,
                       minimumSize: Size.zero,
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context){
+                              return Account_email();
+                            }
+                          )
+                        );
+                    },
                     child:  Icon(
                       Icons.edit_outlined,
                       size: 17,

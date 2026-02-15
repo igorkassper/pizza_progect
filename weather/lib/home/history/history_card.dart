@@ -15,7 +15,6 @@ class _History_card extends State<History_card>{
     return Scaffold(
       backgroundColor: Colors.white,
         appBar: AppBar(
-        automaticallyImplyLeading: false,
           title: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
