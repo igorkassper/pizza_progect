@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// библиотека для создания масок ввода данных
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
@@ -6,6 +7,11 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'cms_message.dart';
 
 
+//
+// файл для авторизации пользователя
+//
+
+// для проверки из файла json в базе данных. база будет переписана потом на другую технологию
 Future<bool> readJsonFile(String password, String numberPhone) async {
   final contents = await rootBundle.loadString('assets/db/users.json');
   final data = jsonDecode(contents);
@@ -21,6 +27,8 @@ Future<bool> readJsonFile(String password, String numberPhone) async {
 }
 
 
+
+
 class Register extends StatefulWidget{
   const Register({super.key});
 
@@ -28,6 +36,8 @@ class Register extends StatefulWidget{
   State<Register> createState() => _Register();
 }
 
+
+// маска формата номера телефона
 var phoneFormatter = MaskTextInputFormatter(
   mask: '+7 (###) ###-##-##',
   filter: { "#": RegExp(r'[0-9]') },
@@ -57,11 +67,13 @@ class _Register extends State<Register>{
         backgroundColor: const Color.fromARGB(255, 223, 48, 47),
       ),
       body: Center(
+        // форма
         child: Form(
             key: _fornKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // ввод номера телефона
                 Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
                   width: 350,
@@ -86,7 +98,7 @@ class _Register extends State<Register>{
 
                   ),
                 ),
-
+                // ввод номера пароля
                 Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
                   width: 350,
@@ -118,6 +130,7 @@ class _Register extends State<Register>{
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(15)),
+                // кнопка для отправки данных
                 Container(
                   alignment: Alignment.topCenter,
                   child: ElevatedButton(
@@ -127,7 +140,9 @@ class _Register extends State<Register>{
 
                     ),
                     onPressed: (){
+                      // проверка данных и переход на экран с cmc сообщением
                       if(_fornKey.currentState!.validate()){
+                        // проверка в базе данных есть ли наш пользователь
                         readJsonFile(password, numberPhone).then((value) {
                         if(value){
                           Navigator.push(
@@ -139,6 +154,7 @@ class _Register extends State<Register>{
                             )
                           );
                         } else{
+                          // в случае если пользователя нет или неправильны данные вызывется сообщени
                           final snackBar = SnackBar(
                             backgroundColor: Color.fromARGB(255, 223, 48, 47),
                             duration: Duration(seconds: 5),

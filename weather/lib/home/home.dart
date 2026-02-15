@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'account/account.dart';
-import 'pizza.dart';
+import 'pizza/pizza.dart';
 import 'history/history.dart';
 import 'order/order.dart';
 

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import '../home/home.dart';
 
+
+//
+// файл для отправки сообщения cmc кода на устройство
+//
+
+
 class Cms extends StatefulWidget{
   Cms({super.key, required this.numberPhone, required this.password,});
   String numberPhone;
@@ -42,6 +48,7 @@ class _Cms extends State<Cms>{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // текст об вводе
                 Text(
                   textAlign: TextAlign.center,
                   "Enter the code\n from the cms",
@@ -52,6 +59,7 @@ class _Cms extends State<Cms>{
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 100)),
+                // поле с кодом
                 Container(
                   width: 300,
                   alignment:Alignment.center,
@@ -74,6 +82,7 @@ class _Cms extends State<Cms>{
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(bottom: 50)),
+                // кнопка для отправки данных
                 Container(
                   alignment:Alignment.center,
                   child: ElevatedButton(
