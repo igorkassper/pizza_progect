@@ -74,7 +74,7 @@ Widget pizza(var context, Function kor_update){
                               context,
                               MaterialPageRoute(
                                 builder: (context){
-                                  return Order_add();
+                                  return Pizza_add();
                                 }
                               )
                             );

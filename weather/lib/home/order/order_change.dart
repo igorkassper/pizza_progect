@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Pizza_add extends StatefulWidget{
-  Pizza_add({super.key});
+class Order_change extends StatefulWidget{
+  Order_change({super.key});
 
-  State<Pizza_add> createState() => _Pizza_add();
+  State<Order_change> createState() => _Order_change();
 }
 
 
@@ -12,7 +12,7 @@ Color color_check_but = Color.fromARGB(255, 255, 255, 255);
 
 
 
-class _Pizza_add extends State<Pizza_add>{
+class _Order_change extends State<Order_change>{
 
     List<Color> backblackcolor = [
       color_nocheck_but,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/home/order/order_change.dart';
 
 
 
@@ -111,7 +112,14 @@ Widget order(var context){
                     ),
                     ElevatedButton(
                       onPressed: (){
-                       
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context){
+                              return Order_change();
+                            }
+                          )
+                        );
                       }, 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 243, 243, 247),
