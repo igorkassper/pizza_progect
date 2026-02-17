@@ -59,7 +59,7 @@ class _Auth extends State<Auth>{
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "Register",
+          "Authorization",
           style:TextStyle(
             color: Colors.white,
             fontSize: 18
