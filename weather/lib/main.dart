@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'autification/Register.dart';
+import 'package:weather/autification/Register.dart';
+import 'autification/auth.dart';
 import 'home/home.dart';
 
 void main() {
@@ -16,8 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Home(),
-      // home: Register(),
+      // home: Home(),
+      // home: Auth(),
+      home: Register(),
+
 
     );
   }

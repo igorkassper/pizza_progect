@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather/autification/Register.dart';
+import 'package:weather/autification/auth.dart';
 import 'package:weather/home/account/account_email.dart';
 import 'package:weather/home/account/account_rename.dart';
 
@@ -351,7 +351,7 @@ Widget account(var context){
                               context,
                               MaterialPageRoute(
                                 builder: (context){
-                                  return Register();
+                                  return Auth();
                                 }
                               )
                             );

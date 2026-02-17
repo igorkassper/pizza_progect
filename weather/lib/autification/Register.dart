@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:weather/autification/auth.dart';
 
 import 'cms_message.dart';
 
@@ -43,12 +44,21 @@ var phoneFormatter = MaskTextInputFormatter(
   filter: { "#": RegExp(r'[0-9]') },
 );
 
+// маска формата для даты рождении
+final dateFormatter = MaskTextInputFormatter(
+    mask: '##/##/####',
+    filter: { "#": RegExp(r'[0-9]') },
+    type: MaskAutoCompletionType.lazy,
+);
 
 class _Register extends State<Register>{
   final _fornKey = GlobalKey<FormState>();
 
   String numberPhone = "";
   String password = "";
+  String name = "";
+  String email = "";
+  String dateBirn = "";
 
 
   @override
@@ -68,11 +78,59 @@ class _Register extends State<Register>{
       ),
       body: Center(
         // форма
-        child: Form(
+        child: ListView(
+          children: [
+            Form(
             key: _fornKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(
+                  padding: EdgeInsets.only(top: 100, bottom: 20, right: 16, left: 16),
+                  width: 350,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      icon: Icon(Icons.account_circle_outlined),
+                      hintText: "Name",
+                      labelText: 'Enter your Name',
+                    ),
+                    validator: (value){
+                      if(value == null || value.isEmpty){
+                        return "Enter your Name";
+                      }
+                      if(value.length < 2 || value.length > 50){
+                        return "Name size from 2 to 50 characters";
+                      }
+                      name = value;
+                      return null;
+                    },
+                  ),
+                ),
+                 Container(
+                  padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
+                  width: 350,
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      icon: Icon(Icons.email_outlined),
+                      hintText: "Email",
+                      labelText: 'Enter your Email',
+                    ),
+                    validator: (value){
+                      if(value == null || value.isEmpty){
+                        return "Enter number Email";
+                      }
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value)) {
+                        return 'Enter a correct email';
+                      }
+                      email = value;
+                      return null;
+                    },
+                  ),
+                ),
                 // ввод номера телефона
                 Container(
                   padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
@@ -126,25 +184,94 @@ class _Register extends State<Register>{
                       password = value;
                       return null;
                     },
-
                   ),
                 ),
-                Padding(padding: EdgeInsets.all(15)),
+                Container(
+                  padding: EdgeInsets.only(top: 20, bottom: 15, right: 16, left: 16),
+                  width: 350,
+                  child: TextFormField(
+                    inputFormatters: [dateFormatter],
+                    decoration: InputDecoration(
+                      border:OutlineInputBorder(),
+                      hintText: "dd/mm/yyyy",
+                      labelText: 'Enter date of birth',
+                      icon: Icon(Icons.date_range),
+                      
+                    ),
+                    validator: (value){
+                      if(value == null || value.isEmpty){
+                        return "Enter date of birth";
+                      }
+                      if (value.length != 10) {
+                        return 'Enter full date';
+                      }
+
+                      try {
+                        final parts = value.split('/');
+                        final day = int.parse(parts[0]);
+                        final month = int.parse(parts[1]);
+                        final year = int.parse(parts[2]);
+                        
+                        if (day < 1 || day > 31) {
+                          return 'Incorrect day';
+                        }
+                        if (month < 1 || month > 12) {
+                          return 'Incorrect month';
+                        }
+                        if (year < 1900 || year > DateTime.now().year) {
+                          return 'Incorrect year';
+                        }
+                        
+                        final date = DateTime(year, month, day);
+                        if (date.day != day || date.month != month) {
+                          return 'No such date exists';
+                        }
+                      } catch (e) {
+                        return 'Invalid date';
+                      }
+
+                      dateBirn = value;
+                      return null;
+                    },
+                  ),
+                ),
                 // кнопка для отправки данных
+                Container(
+                  child: TextButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                      shadowColor: const Color.fromARGB(0, 255, 255, 255),
+                      overlayColor: const Color.fromARGB(0, 255, 255, 255),
+                    ),
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context){
+                            return Auth();
+                          }
+                        )
+                      );
+                    }, 
+                    child: Text(
+                      "Do you have an account?",
+                      style: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline
+                      ),
+                    )
+                  ),
+                ),
+                Padding(padding: EdgeInsets.all(5)),
                 Container(
                   alignment: Alignment.topCenter,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      
                       backgroundColor: const Color.fromARGB(255, 223, 48, 47),
-
                     ),
                     onPressed: (){
                       // проверка данных и переход на экран с cmc сообщением
                       if(_fornKey.currentState!.validate()){
-                        // проверка в базе данных есть ли наш пользователь
-                        readJsonFile(password, numberPhone).then((value) {
-                        if(value){
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -153,27 +280,7 @@ class _Register extends State<Register>{
                               }
                             )
                           );
-                        } else{
-                          // в случае если пользователя нет или неправильны данные вызывется сообщени
-                          final snackBar = SnackBar(
-                            backgroundColor: Color.fromARGB(255, 223, 48, 47),
-                            duration: Duration(seconds: 5),
-                            content: Text("Incorrect password or login"),
-                            behavior: SnackBarBehavior.floating,
-                            dismissDirection: DismissDirection.none,
-                            showCloseIcon: true,
-                            action: SnackBarAction(
-                              label: "Close", 
-                              onPressed: (){
-
-                              }
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
-                        });
-                      }
                     },
                     child:Padding(
                       padding: EdgeInsets.all(10),
@@ -191,6 +298,8 @@ class _Register extends State<Register>{
               ],
             )
           ),
+        ],
+      )  
       ),
     );
   }
