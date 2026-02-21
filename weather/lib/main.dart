@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      // home: Home(),
+      home: Home(),
       // home: Auth(),
-      home: Register(),
+      // home: Register(),
 
 
     );

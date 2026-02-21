@@ -5,7 +5,10 @@ import 'package:weather/home/order/order_change.dart';
 
 Widget order(var context){
   return Center(
-    child: ListView(
+    child: Column(
+      children: [
+        Expanded(
+          child: ListView(
             padding: EdgeInsets.all(16),
             children: [
               Container(
@@ -142,7 +145,32 @@ Widget order(var context){
                 
               )
             ],
-          )
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          child: ElevatedButton(
+            onPressed: (){
+              
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 223, 48, 47),
+              fixedSize: Size(250, 40),
+            ),
+            child: Text(
+              "Place an order",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ],
+    )
+    
+     
   );
 
 
