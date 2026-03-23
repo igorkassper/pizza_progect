@@ -1,143 +1,182 @@
 import 'package:flutter/material.dart';
 import 'package:weather/home/order/order_change.dart';
+import 'package:weather/home/order/order_view.dart';
 
 
 Widget order(var context) {
-  return Center(
-    child: ListView(
-      padding: EdgeInsets.all(16),
-      children: [
-        Container(
-          child: Row(
-            children: [
-              Image(
-                fit: BoxFit.contain,
-                image: AssetImage("assets/img/pizza_card.png"),
-                width: 120,
-                height: 120,
-              ),
-              SizedBox(width: 6),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+  return Stack(
+    alignment: Alignment.bottomCenter,
+    children: [
+      Center(
+        child: ListView(
+          padding: EdgeInsets.all(16),
+          children: [
+            Container(
+              child: Row(
+                children: [
+                  Image(
+                    fit: BoxFit.contain,
+                    image: AssetImage("assets/img/pizza_card.png"),
+                    width: 120,
+                    height: 120,
+                  ),
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Cheese pizza",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 46, 46, 46),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Order_change();
-                                },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Cheese pizza",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 46, 46, 46),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 243, 243, 247),
-                            shadowColor: Color.fromARGB(255, 255, 255, 255),
-                            overlayColor: Color.fromARGB(255, 255, 255, 255),
-                            minimumSize: Size.zero,
-                            fixedSize: Size(30, 30),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                          ),
-                          child: Icon(
-                            Icons.more_horiz,
-                            color: Color.fromARGB(255, 48, 48, 48),
-                            size: 15,
-                          ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Order_change();
+                                    },
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromARGB(255, 243, 243, 247),
+                                shadowColor: Color.fromARGB(255, 255, 255, 255),
+                                overlayColor: Color.fromARGB(255, 255, 255, 255),
+                                minimumSize: Size.zero,
+                                fixedSize: Size(30, 30),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.zero,
+                                visualDensity: VisualDensity.compact,
+                              ),
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: Color.fromARGB(255, 48, 48, 48),
+                                size: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "30 см, Tradition\nsupplements (3)",
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 46, 46, 46),
-                        fontSize: 12,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                        SizedBox(height: 5),
                         Text(
-                          "899 ₽",
-                          textAlign: TextAlign.center,
+                          "30 см, Tradition\nsupplements (3)",
                           style: TextStyle(
                             color: const Color.fromARGB(255, 46, 46, 46),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 12,
                           ),
                         ),
+                        SizedBox(height: 5),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ElevatedButton(
-                              onPressed: (){}, 
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color.fromARGB(255, 243, 243, 247),
-                                shadowColor: Color.fromARGB(255, 255, 255, 255),
-                                overlayColor: Color.fromARGB(255, 255, 255, 255),
-                                minimumSize: Size.zero,
-                                fixedSize: Size(30, 30),
-                                alignment: Alignment.center ,
-                                padding: EdgeInsets.zero,
-                                visualDensity: VisualDensity.compact,
+                            Text(
+                              "899 ₽",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 46, 46, 46),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
-                              child: Icon(
-                                Icons.add,
-                                color: Color.fromARGB(255, 48, 48, 48),
-                                size: 15
-                              )
                             ),
-                            Padding(padding: EdgeInsets.only(left: 10)),
-                            Text("1"),
-                            Padding(padding: EdgeInsets.only(left: 10)),
-                            ElevatedButton(
-                              onPressed: (){}, 
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color.fromARGB(255, 243, 243, 247),
-                                shadowColor: Color.fromARGB(255, 255, 255, 255),
-                                overlayColor: Color.fromARGB(255, 255, 255, 255),
-                                minimumSize: Size.zero,
-                                fixedSize: Size(30, 30),
-                                alignment: Alignment.center ,
-                                padding: EdgeInsets.zero,
-                                visualDensity: VisualDensity.compact,
-                              ),
-                              child: Icon(
-                                Icons.remove,
-                                color: Color.fromARGB(255, 48, 48, 48),
-                                size: 15
-                              )
-                            ),
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: (){}, 
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color.fromARGB(255, 243, 243, 247),
+                                    shadowColor: Color.fromARGB(255, 255, 255, 255),
+                                    overlayColor: Color.fromARGB(255, 255, 255, 255),
+                                    minimumSize: Size.zero,
+                                    fixedSize: Size(30, 30),
+                                    alignment: Alignment.center ,
+                                    padding: EdgeInsets.zero,
+                                    visualDensity: VisualDensity.compact,
+                                  ),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Color.fromARGB(255, 48, 48, 48),
+                                    size: 15
+                                  )
+                                ),
+                                Padding(padding: EdgeInsets.only(left: 10)),
+                                Text("1"),
+                                Padding(padding: EdgeInsets.only(left: 10)),
+                                ElevatedButton(
+                                  onPressed: (){}, 
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color.fromARGB(255, 243, 243, 247),
+                                    shadowColor: Color.fromARGB(255, 255, 255, 255),
+                                    overlayColor: Color.fromARGB(255, 255, 255, 255),
+                                    minimumSize: Size.zero,
+                                    fixedSize: Size(30, 30),
+                                    alignment: Alignment.center ,
+                                    padding: EdgeInsets.zero,
+                                    visualDensity: VisualDensity.compact,
+                                  ),
+                                  child: Icon(
+                                    Icons.remove,
+                                    color: Color.fromARGB(255, 48, 48, 48),
+                                    size: 15
+                                  )
+                                ),
+                              ],
+                            )
+                            
                           ],
                         )
                         
                       ],
-                    )
-                    
-                  ],
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(15),
+        child: ElevatedButton(
+          onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return SimpleDatePickerTextField();
+                },
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 223, 48, 47),
+            shadowColor: Color.fromARGB(255, 255, 255, 255),
+            overlayColor: Color.fromARGB(255, 255, 255, 255),
+          ),
+          child:Padding(
+            padding: EdgeInsets.all(10),
+            child: Text(
+              "Перейти к оплате",
+                style:TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                )
+            ),
+          ) 
+        ),
+      )
+    ],
   );
-}
+}  
+   
+
+

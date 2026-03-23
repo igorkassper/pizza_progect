@@ -8,7 +8,7 @@ class Account_email extends StatefulWidget{
 
 class _Account_email extends State<Account_email>{
   
-  late final TextEditingController _nameform = TextEditingController(text: "igorkassper@gmail.com");
+  final TextEditingController _nameform = TextEditingController(text: "igorkassper@gmail.com");
   
   @override
   Widget build(BuildContext context) {
@@ -90,8 +90,8 @@ class _Account_email extends State<Account_email>{
                 Container(
                   // width: 250,
                   child: TextField(
-                  controller: _nameform,
-                  decoration: InputDecoration(
+                    controller: _nameform,
+                    decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "Email",
                       labelText: 'Enter your Email',
