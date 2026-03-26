@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/home/order/order_oplata.dart';
 
 
 
@@ -12,6 +13,8 @@ Color color_nocheck_but = Color.fromARGB(255, 243, 243, 247);
 Color color_check_but = Color.fromARGB(255, 255, 255, 255);
 
 
+Color color_nocheck_but_2 = Color.fromARGB(255, 243, 243, 247);
+Color color_check_but_2 = Color.fromARGB(255, 255, 255, 255);
 
 
 class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
@@ -77,23 +80,43 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
     }
   }
 
-  List<Color> testo_check = [
+  List<Color> check = [
     color_check_but,
     color_nocheck_but,
   ];
 
 
-  void testo(int index){
+  void oplata_1(int index){
     setState(() {
-      for(int i = 0; i < testo_check.length; i++){
-        testo_check[i] = color_nocheck_but;
+      for(int i = 0; i < check.length; i++){
+        check[i] = color_nocheck_but;
       }
-      testo_check[index] = color_check_but;
+      check[index] = color_check_but;
     });
   }
 
+
+
+  List<Color> check_2 = [
+    color_check_but_2,
+    color_nocheck_but_2,
+  ];
+
+
+  void oplata_2(int index){
+    setState(() {
+      for(int i = 0; i < check_2.length; i++){
+        check_2[i] = color_nocheck_but_2;
+      }
+      check_2[index] = color_check_but_2;
+    });
+  }
+
+
+
+
   String? selectedValue;
-  List<String> items = ['Новосибирск', 'Красноярск', 'Москва', 'Санкт Питербург'];
+  List<String> items = ['Охоткая 88', 'Каменская 56', 'Красный проспект 187'];
 
   final _fornKey = GlobalKey<FormState>();
 
@@ -137,11 +160,9 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
               unselectedLabelColor: Colors.white,
               tabs: [
                 Tab(
-                  // icon: Icon(Icons.local_pizza,),
                   text: "Самовывоз",
                 ),
                 Tab(
-                  // icon: Icon(Icons.account_circle),
                   text: "Доставка",
                 )
               ]
@@ -225,7 +246,7 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                             ),
                             child: DropdownButton<String>(
                               value: selectedValue,
-                              hint: Text('Выберите город'),
+                              hint: Text('Выберите адрес пицерии'),
                               isExpanded: true, 
                               borderRadius: BorderRadius.circular(20), 
                               items: items.map((String item) {
@@ -242,103 +263,6 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                               dropdownColor: Colors.white
                             )
                           ),
-                          Form(
-                            key: _fornKey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  alignment:Alignment.center,
-                                  child: TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: "Улица, дом",
-                                      labelText: 'Название улицы или дома',
-                                    ),
-                                    validator: (value){
-                                      if(value == null || value.isEmpty){
-                                        return "Введите название улицы или дома";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(bottom: 30)),
-                                Container(
-                                  alignment:Alignment.center,
-                                  child: TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: "Подъзд",
-                                      labelText: 'Номер подъезда',
-                                    ),
-                                    validator: (value){
-                                      if(value == null || value.isEmpty){
-                                        return "Введите номер подъезда";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(bottom: 30)),
-                                Container(
-                                  alignment:Alignment.center,
-                                  child: TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: "Этаж",
-                                      labelText: 'Номер этажа',
-                                    ),
-                                    validator: (value){
-                                      if(value == null || value.isEmpty){
-                                        return "Введите номер этажа";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(bottom: 30)),
-                                Container(
-                                  alignment:Alignment.center,
-                                  child: TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: "Кв, Офис",
-                                      labelText: 'Название квартиры или офиса',
-                                    ),
-                                    validator: (value){
-                                      if(value == null || value.isEmpty){
-                                        return "Введите название квартиры или офиса";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(bottom: 30)),
-                                Container(
-                                  alignment:Alignment.center,
-                                  child: TextFormField(
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: "Домофон",
-                                      labelText: 'Номер домофона',
-                                    ),
-                                    validator: (value){
-                                      if(value == null || value.isEmpty){
-                                        return "Введите номер домофона";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ]
-                            ),
-                          ),
                           Container(
                             // margin: EdgeInsets.only(top: 20, left: 10, right: 10),
                             padding: EdgeInsets.all(7),
@@ -352,10 +276,10 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: (){
-                                      testo(0);
+                                      oplata_1(0);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: testo_check[0],
+                                      backgroundColor: check[0],
                                       shadowColor: Color.fromARGB(0, 223, 48, 47),
                                       overlayColor: Color.fromARGB(0, 84, 84, 84),
                                       fixedSize: Size(150, 200),
@@ -391,10 +315,10 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: (){
-                                      testo(1);
+                                      oplata_1(1);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: testo_check[1],
+                                      backgroundColor: check[1],
                                       shadowColor: Color.fromARGB(0, 223, 48, 47),
                                       overlayColor: Color.fromARGB(0, 84, 84, 84),
                                       fixedSize: Size(150, 200),
@@ -428,6 +352,37 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                               ]
                             ),
                           ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(top: 10),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Order_oplata();
+                                    },
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromARGB(255, 223, 48, 47),
+                                shadowColor: Color.fromARGB(255, 255, 255, 255),
+                                overlayColor: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              child:Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  "Перейти к оплате",
+                                    style:TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    )
+                                ),
+                              ) 
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -492,40 +447,6 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                               ),
                             ),
                           ),
-                          Theme(
-                            data: Theme.of(context).copyWith(
-                              buttonTheme: ButtonThemeData(
-                                buttonColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                              ),
-                              splashFactory: NoSplash.splashFactory,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              splashColor: Colors.transparent,
-                            ),
-                            child: DropdownButton<String>(
-                              value: selectedValue,
-                              hint: Text('Выберите город'),
-                              isExpanded: true, 
-                              borderRadius: BorderRadius.circular(20), 
-                              items: items.map((String item) {
-                                return DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(item),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  selectedValue = newValue;
-                                });
-                              },
-                              dropdownColor: Colors.white
-                            )
-                          ),
                           Form(
                             key: _fornKey,
                             child: Column(
@@ -636,10 +557,10 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: (){
-                                      testo(0);
+                                      oplata_2(0);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: testo_check[0],
+                                      backgroundColor: check_2[0],
                                       shadowColor: Color.fromARGB(0, 223, 48, 47),
                                       overlayColor: Color.fromARGB(0, 84, 84, 84),
                                       fixedSize: Size(150, 200),
@@ -675,10 +596,10 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: (){
-                                      testo(1);
+                                      oplata_2(1);
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: testo_check[1],
+                                      backgroundColor: check_2[1],
                                       shadowColor: Color.fromARGB(0, 223, 48, 47),
                                       overlayColor: Color.fromARGB(0, 84, 84, 84),
                                       fixedSize: Size(150, 200),
@@ -712,6 +633,37 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                               ]
                             ),
                           ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(top: 10, bottom: 25),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Order_oplata();
+                                    },
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromARGB(255, 223, 48, 47),
+                                shadowColor: Color.fromARGB(255, 255, 255, 255),
+                                overlayColor: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              child:Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  "Перейти к оплате",
+                                    style:TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    )
+                                ),
+                              ) 
+                            ),
+                          )
                         ],
                       ),
                     ),
