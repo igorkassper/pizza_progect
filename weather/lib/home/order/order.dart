@@ -30,7 +30,7 @@ Widget order(var context) {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Cheese pizza",
+                              "Сырная пицца",
                               style: TextStyle(
                                 color: Color.fromARGB(255, 46, 46, 46),
                                 fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ Widget order(var context) {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          "30 см, Tradition\nsupplements (3)",
+                          "30 см, Традиционное\nдобавки (3)",
                           style: TextStyle(
                             color: const Color.fromARGB(255, 46, 46, 46),
                             fontSize: 12,

@@ -8,7 +8,7 @@ class Account_rename extends StatefulWidget{
 
 class _Account_rename extends State<Account_rename>{
   
-  late final TextEditingController _nameform = TextEditingController(text: "igor");
+  late final TextEditingController _nameform = TextEditingController(text: "Игорь");
   
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class _Account_rename extends State<Account_rename>{
                         color: Color.fromARGB(255, 48, 48, 48),
                       ),
                       Text(
-                        "Back",
+                        "Назад",
                         style: TextStyle(
                           color: Color.fromARGB(255, 48, 48, 48),
                         ),
@@ -77,7 +77,7 @@ class _Account_rename extends State<Account_rename>{
                 Container(
                   width: double.infinity,
                   child: Text(
-                    "Add information",
+                    "Измените имя",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 20,
@@ -93,8 +93,8 @@ class _Account_rename extends State<Account_rename>{
                   controller: _nameform,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Name",
-                      labelText: 'Enter your name',
+                      hintText: "Имя",
+                      labelText: 'Введите свое имя',
                     ),
                   ),
                 )
@@ -123,7 +123,7 @@ class _Account_rename extends State<Account_rename>{
                     fixedSize: Size(250, 40),
                   ),
                   child: Text(
-                    "Cancel",
+                    "Отмена",
                     style: TextStyle(
                       color: Color.fromARGB(255, 48, 48, 48),
                       fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _Account_rename extends State<Account_rename>{
                     fixedSize: Size(250, 40),
                   ),
                   child: Text(
-                    "Change",
+                    "Поменять",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

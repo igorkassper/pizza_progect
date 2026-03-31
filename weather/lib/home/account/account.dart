@@ -43,7 +43,7 @@ Widget account(var context){
                 children: [
                   Padding(padding: EdgeInsets.only(left: 30)),
                   Text(
-                    "You have coins available",
+                    "У вас есть доступные монеты",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 16,
@@ -81,7 +81,7 @@ Widget account(var context){
                     size:25,
                   ),
                   Text(
-                    "Addresses",
+                    "Адреса",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 17,
@@ -117,7 +117,7 @@ Widget account(var context){
                     size:25,
                   ),
                   Text(
-                    "Orders",
+                    "Заказы",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 17,
@@ -152,7 +152,7 @@ Widget account(var context){
                     ),
                     Padding(padding: EdgeInsets.only(left: 10)),
                     Text(
-                      "Igor",
+                      "Игорь",
                       style: TextStyle(
                         color: const Color.fromARGB(255, 46, 46, 46),
                         fontSize: 14,
@@ -271,7 +271,7 @@ Widget account(var context){
                 ),
                 Padding(padding: EdgeInsets.only(left: 10)),
                 Text(
-                  "6 January",
+                  "6 января",
                   style: TextStyle(
                     color: const Color.fromARGB(255, 46, 46, 46),
                     fontSize: 14,
@@ -333,13 +333,13 @@ Widget account(var context){
                   builder: (context) {
                     return AlertDialog(
                       backgroundColor: Color.fromARGB(255, 248, 248, 248),
-                      title: Text('Account deletion'),
-                      content: Text('Are you sure you want to delete your account?'),
+                      title: Text('Выход из аккаунта'),
+                      content: Text('Вы уверены, что хотите выйти из аккаунта?'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text(
-                            'Cancel',
+                            'Назад',
                             style: TextStyle(
                               color: const Color.fromARGB(255, 46, 46, 46),
                             ),
@@ -381,7 +381,7 @@ Widget account(var context){
                       ),
                       Padding(padding: EdgeInsets.only(left: 10)),
                       Text(
-                        "Exit",
+                        "Выход",
                         style: TextStyle(
                           color: const Color.fromARGB(255, 46, 46, 46),
                           fontSize: 14,
@@ -416,7 +416,7 @@ Widget account(var context){
           ),
           onPressed: (){},
           child: Text(
-            "Delete account",
+            "Удалить аккаунт",
             style: TextStyle(
               color: const Color.fromARGB(255, 46, 46, 46),
             ),

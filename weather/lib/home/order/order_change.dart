@@ -128,7 +128,7 @@ class _Order_change extends State<Order_change>{
                         color: Color.fromARGB(255, 48, 48, 48),
                       ),
                       Text(
-                        "Back",
+                        "Назад",
                         style: TextStyle(
                           color: Color.fromARGB(255, 48, 48, 48),
                         ),
@@ -146,7 +146,7 @@ class _Order_change extends State<Order_change>{
                 padding: EdgeInsets.only(left: 10,),
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Cheese pizza",
+                  "Сырная пицца",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: const Color.fromARGB(255, 48, 48, 48),
@@ -158,7 +158,7 @@ class _Order_change extends State<Order_change>{
               Container(
                 padding: EdgeInsets.only(left: 10,top: 10),
                 child: Text(
-                  "Added juicy pork neck to spicy beef, piquant pepperoni, bacon and mozzarella with signature tomato sauce",
+                  "Сочная свиная шея в сочетании с острой говядиной, пикантной пепперони, беконом и моцареллой, заправленная фирменным томатным соусом.",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: const Color.fromARGB(255, 80, 80, 80),
@@ -315,9 +315,10 @@ class _Order_change extends State<Order_change>{
                           fixedSize: Size(150, double.infinity)
                         ),
                         child: Text(
-                          "Tradition",
+                          "Традиционное",
                           style: TextStyle(
                             color: Color.fromARGB(255, 48, 48, 48),
+                            fontSize: 12,
                           ),
                         ),
                         
@@ -335,9 +336,10 @@ class _Order_change extends State<Order_change>{
                           fixedSize: Size(150, double.infinity)
                         ),
                         child: Text(
-                          "Thin",
+                          "Тонкое",
                           style: TextStyle(
                             color: Color.fromARGB(255, 48, 48, 48),
+                            fontSize: 12,
                           ),
                         ),
                         
@@ -385,15 +387,18 @@ class _Order_change extends State<Order_change>{
                                 Image(
                                   fit: BoxFit.contain,
                                   image: AssetImage("assets/img/dop.png",),
-                                  width: 100,
-                                  height: 100,
+                                  width: 80,
+                                  height: 80,
                                 ),
                                 Text(
-                                  "Spicy beef",
+                                  "Ароматная свинина",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
                                   style: TextStyle(
                                     color: const Color.fromARGB(255, 80, 80, 80),
                                     fontSize: 12,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 Text(
                                   "119 ₽",
@@ -426,7 +431,7 @@ class _Order_change extends State<Order_change>{
                   fixedSize: Size(250, 40),
                 ),
                 child: Text(
-                  "Add to cart",
+                  "Добавить в корзину",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

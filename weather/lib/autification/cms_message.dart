@@ -51,7 +51,7 @@ class _Cms extends State<Cms>{
                 // текст об вводе
                 Text(
                   textAlign: TextAlign.center,
-                  "Enter the code\n from the cms",
+                  "Ввдите код\n из cmc",
                   style: TextStyle(
                     // color: Colors.white,
                     fontSize: 30,
@@ -67,15 +67,15 @@ class _Cms extends State<Cms>{
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: "Code",
-                      labelText: 'Enter your cms code',
+                      hintText: "Код",
+                      labelText: 'Введите свой cmc код',
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter cms code";
+                        return "Введите cms код";
                       }
                       if(!value.contains(RegExp(r'[0-9]')) || value.length != 6){
-                        return "Incorrect code";
+                        return "Неверный код";
                       }
                       return null;
                     },

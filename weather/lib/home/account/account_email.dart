@@ -64,7 +64,7 @@ class _Account_email extends State<Account_email>{
                         color: Color.fromARGB(255, 48, 48, 48),
                       ),
                       Text(
-                        "Back",
+                        "Назад",
                         style: TextStyle(
                           color: Color.fromARGB(255, 48, 48, 48),
                         ),
@@ -77,7 +77,7 @@ class _Account_email extends State<Account_email>{
                 Container(
                   width: double.infinity,
                   child: Text(
-                    "Add information",
+                    "Измените Email",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 20,
@@ -94,7 +94,7 @@ class _Account_email extends State<Account_email>{
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "Email",
-                      labelText: 'Enter your Email',
+                      labelText: 'Введите свой Email',
                     ),
                   ),
                 )
@@ -123,7 +123,7 @@ class _Account_email extends State<Account_email>{
                     fixedSize: Size(250, 40),
                   ),
                   child: Text(
-                    "Cancel",
+                    "Отмена",
                     style: TextStyle(
                       color: Color.fromARGB(255, 48, 48, 48),
                       fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _Account_email extends State<Account_email>{
                     fixedSize: Size(250, 40),
                   ),
                   child: Text(
-                    "Change",
+                    "Поменять",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

@@ -93,7 +93,7 @@ class _Home extends State<Home>{
               // радиус при наведении
               splashBorderRadius: BorderRadius.circular(10),
               labelStyle:TextStyle(
-                fontSize: 11,
+                fontSize: 10,
               ),
               dividerHeight: 0,
               labelColor: Colors.white,
@@ -102,19 +102,19 @@ class _Home extends State<Home>{
               tabs: [
                 Tab(
                   icon: Icon(Icons.local_pizza,),
-                  text: "Pizza",
+                  text: "Пицца",
                 ),
                 Tab(
                   icon: Icon(Icons.history),
-                  text: "History",
+                  text: "История",
                 ),
                 Tab(
                   icon: icon_baidge(korzina),
-                  text: "Order",
+                  text: "Корзина",
                 ),
                 Tab(
                   icon: Icon(Icons.account_circle),
-                  text: "Account",
+                  text: "Аккаунт",
                 )
               ]
             ),

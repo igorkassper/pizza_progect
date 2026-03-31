@@ -68,7 +68,7 @@ class _Register extends State<Register>{
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "Register",
+          "Регистрация",
           style:TextStyle(
             color: Colors.white,
             fontSize: 18
@@ -92,15 +92,15 @@ class _Register extends State<Register>{
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       icon: Icon(Icons.account_circle_outlined),
-                      hintText: "Name",
-                      labelText: 'Enter your Name',
+                      hintText: "Имя",
+                      labelText: 'Введите свое имя',
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter your Name";
+                        return "Введите имя";
                       }
                       if(value.length < 2 || value.length > 50){
-                        return "Name size from 2 to 50 characters";
+                        return "Длина имени от 2 до 50 символов";
                       }
                       name = value;
                       return null;
@@ -116,15 +116,15 @@ class _Register extends State<Register>{
                       border: OutlineInputBorder(),
                       icon: Icon(Icons.email_outlined),
                       hintText: "Email",
-                      labelText: 'Enter your Email',
+                      labelText: 'Введите свой Email',
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter number Email";
+                        return "Введите свой Email";
                       }
                       final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (!emailRegex.hasMatch(value)) {
-                        return 'Enter a correct email';
+                        return 'Неверный Email';
                       }
                       email = value;
                       return null;
@@ -141,14 +141,14 @@ class _Register extends State<Register>{
                       border: OutlineInputBorder(),
                       icon: Icon(Icons.phone),
                       hintText: "+7",
-                      labelText: 'Enter your number phone',
+                      labelText: 'Ввидите номер телефона',
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter number phone";
+                        return "Введите номер телефона";
                       }
                        if (value.replaceAll(RegExp(r'[^0-9]'), '').length != 11) {
-                        return 'Enter full number';
+                        return 'Введите полный номер';
                       }
                       numberPhone = value;
                       return null;
@@ -164,14 +164,14 @@ class _Register extends State<Register>{
                     obscureText: true,
                     decoration: InputDecoration(
                       border:OutlineInputBorder(),
-                      hintText: "Password",
-                      labelText: 'Enter your password',
+                      hintText: "Пароль",
+                      labelText: 'Введите свой пароль',
                       icon: Icon(Icons.password),
                       
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter password";
+                        return "Введите пароль";
                       }
                         if(
                           value.length < 10 || 
@@ -179,7 +179,7 @@ class _Register extends State<Register>{
                           !value.contains(RegExp(r'[a-z]')) || 
                           !value.contains(RegExp(r'[0-9]'))
                         ){
-                        return "The password must contain:\n - 10 characters or more\n - Capital letters\n - Lowercase letters\n - Numbers";
+                        return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
                       }
                       password = value;
                       return null;
@@ -194,16 +194,16 @@ class _Register extends State<Register>{
                     decoration: InputDecoration(
                       border:OutlineInputBorder(),
                       hintText: "dd/mm/yyyy",
-                      labelText: 'Enter date of birth',
+                      labelText: 'Введите дату рождения',
                       icon: Icon(Icons.date_range),
                       
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter date of birth";
+                        return "Введите дату рождения";
                       }
                       if (value.length != 10) {
-                        return 'Enter full date';
+                        return 'Введите полную дату';
                       }
 
                       try {
@@ -213,21 +213,21 @@ class _Register extends State<Register>{
                         final year = int.parse(parts[2]);
                         
                         if (day < 1 || day > 31) {
-                          return 'Incorrect day';
+                          return 'Некорректный день';
                         }
                         if (month < 1 || month > 12) {
-                          return 'Incorrect month';
+                          return 'Некорректный месяц';
                         }
                         if (year < 1900 || year > DateTime.now().year) {
-                          return 'Incorrect year';
+                          return 'Некорректный год';
                         }
                         
                         final date = DateTime(year, month, day);
                         if (date.day != day || date.month != month) {
-                          return 'No such date exists';
+                          return 'такой даты не существует';
                         }
                       } catch (e) {
-                        return 'Invalid date';
+                        return 'Неверная дата';
                       }
 
                       dateBirn = value;
@@ -254,7 +254,7 @@ class _Register extends State<Register>{
                       );
                     }, 
                     child: Text(
-                      "Do you have an account?",
+                      "Уже есть аккаунт?",
                       style: TextStyle(
                         color: Colors.black,
                         decoration: TextDecoration.underline

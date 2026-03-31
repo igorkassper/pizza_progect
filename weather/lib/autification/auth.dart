@@ -59,7 +59,7 @@ class _Auth extends State<Auth>{
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "Authorization",
+          "Авторизация",
           style:TextStyle(
             color: Colors.white,
             fontSize: 18
@@ -84,14 +84,14 @@ class _Auth extends State<Auth>{
                       border: OutlineInputBorder(),
                       icon: Icon(Icons.phone),
                       hintText: "+7",
-                      labelText: 'Enter your number phone',
+                      labelText: 'Введите свой номер телефона',
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter number phone";
+                        return "Введите номер телефона";
                       }
                        if (value.replaceAll(RegExp(r'[^0-9]'), '').length != 11) {
-                        return 'Enter full number';
+                        return 'Введите полный номер';
                       }
                       numberPhone = value;
                       return null;
@@ -107,14 +107,14 @@ class _Auth extends State<Auth>{
                     obscureText: true,
                     decoration: InputDecoration(
                       border:OutlineInputBorder(),
-                      hintText: "Password",
-                      labelText: 'Enter your password',
+                      hintText: "Пароль",
+                      labelText: 'Введите свой пароль',
                       icon: Icon(Icons.password),
                       
                     ),
                     validator: (value){
                       if(value == null || value.isEmpty){
-                        return "Enter password";
+                        return "Введите пароль";
                       }
                         if(
                           value.length < 10 || 
@@ -122,7 +122,7 @@ class _Auth extends State<Auth>{
                           !value.contains(RegExp(r'[a-z]')) || 
                           !value.contains(RegExp(r'[0-9]'))
                         ){
-                        return "The password must contain:\n - 10 characters or more\n - Capital letters\n - Lowercase letters\n - Numbers";
+                        return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
                       }
                       password = value;
                       return null;
@@ -148,7 +148,7 @@ class _Auth extends State<Auth>{
                       );
                     }, 
                     child: Text(
-                      "Don't have an account yet?",
+                      "Еще нет аккаунта?",
                       style: TextStyle(
                         color: Colors.black,
                         decoration: TextDecoration.underline
@@ -183,12 +183,12 @@ class _Auth extends State<Auth>{
                           final snackBar = SnackBar(
                             backgroundColor: Color.fromARGB(255, 223, 48, 47),
                             duration: Duration(seconds: 5),
-                            content: Text("Incorrect password or login"),
+                            content: Text("Неверный пароль или логин"),
                             behavior: SnackBarBehavior.floating,
                             dismissDirection: DismissDirection.none,
                             showCloseIcon: true,
                             action: SnackBarAction(
-                              label: "Close", 
+                              label: "Закрыть", 
                               onPressed: (){
 
                               }

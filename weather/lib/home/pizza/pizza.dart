@@ -26,7 +26,7 @@ Widget pizza(var context, Function kor_update){
                   Container(
                     padding: EdgeInsets.only(left: 10,),
                     child: Text(
-                      "Cheese pizza",
+                      "Сырная пицца",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: const Color.fromARGB(255, 48, 48, 48),
@@ -38,7 +38,7 @@ Widget pizza(var context, Function kor_update){
                   Container(
                     padding: EdgeInsets.only(left: 10,top: 10),
                     child: Text(
-                      "Added juicy pork neck to spicy beef, piquant pepperoni, bacon and mozzarella with signature tomato sauce",
+                      "Сочная свиная шея в сочетании с острой говядиной, пикантной пепперони, беконом и моцареллой, заправленная фирменным томатным соусом.",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         color: const Color.fromARGB(255, 80, 80, 80),
@@ -53,7 +53,7 @@ Widget pizza(var context, Function kor_update){
                       Container(
                         padding: EdgeInsets.only(left: 10,top: 20),
                         child: Text(
-                          "At 899 ₽",
+                          "От 899 ₽",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 46, 46, 46),
@@ -84,7 +84,7 @@ Widget pizza(var context, Function kor_update){
                             }
                           },
                           child: Text(
-                            "Chouce",
+                            "Выбрать",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 17,

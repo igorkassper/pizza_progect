@@ -196,7 +196,7 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                                   color: Color.fromARGB(255, 48, 48, 48),
                                 ),
                                 Text(
-                                  "Back",
+                                  "Назад",
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 48, 48, 48),
                                   ),
@@ -415,7 +415,7 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                                   color: Color.fromARGB(255, 48, 48, 48),
                                 ),
                                 Text(
-                                  "Back",
+                                  "Назад",
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 48, 48, 48),
                                   ),
