@@ -5,8 +5,6 @@ import 'history/history.dart';
 import 'order/order.dart';
 
 
-
-
 Widget icon_baidge(int korzina) {
   return Stack(
     children: [

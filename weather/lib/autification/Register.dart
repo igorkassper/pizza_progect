@@ -8,11 +8,6 @@ import 'package:weather/autification/auth.dart';
 import 'cms_message.dart';
 
 
-//
-// файл для регистрации пользователя
-//
-
-// для проверки из файла json в базе данных. база будет переписана потом на другую технологию
 Future<bool> readJsonFile(String password, String numberPhone) async {
   final contents = await rootBundle.loadString('assets/db/users.json');
   final data = jsonDecode(contents);
@@ -26,8 +21,6 @@ Future<bool> readJsonFile(String password, String numberPhone) async {
   return availability;
 
 }
-
-
 
 
 class Register extends StatefulWidget{

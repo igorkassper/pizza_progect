@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import '../home/home.dart';
 
 
-//
-// файл для отправки сообщения cmc кода на устройство
-//
-
-
 class Cms extends StatefulWidget{
   Cms({super.key, required this.numberPhone, required this.password,});
   String numberPhone;
@@ -15,8 +10,6 @@ class Cms extends StatefulWidget{
   @override
   State<Cms> createState() => _Cms(numberPhone: numberPhone, password: password);
 }
-
-
 
 class _Cms extends State<Cms>{
 
