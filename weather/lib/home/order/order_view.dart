@@ -374,7 +374,7 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                               child:Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Text(
-                                  "Перейти к оплате",
+                                  "Оформить",
                                     style:TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,
@@ -655,7 +655,7 @@ class _SimpleDatePickerTextFieldState extends State<SimpleDatePickerTextField> {
                               child:Padding(
                                 padding: EdgeInsets.all(10),
                                 child: Text(
-                                  "Перейти к оплате",
+                                  "Оформить",
                                     style:TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,

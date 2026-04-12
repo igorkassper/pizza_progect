@@ -165,7 +165,7 @@ Widget order(var context) {
           child:Padding(
             padding: EdgeInsets.all(10),
             child: Text(
-              "Перейти к оплате",
+              "Перейти к оформлению",
                 style:TextStyle(
                   fontSize: 18,
                   color: Colors.white,
