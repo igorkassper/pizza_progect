@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'account/account.dart';
 import 'pizza/pizza.dart';
 import 'history/history.dart';
 import 'order/order.dart';
+import 'package:weather/provid/korzinaplus.dart';
+
 
 
 Widget icon_baidge(int korzina) {
@@ -44,19 +47,11 @@ class Home extends StatefulWidget{
 
 
 class _Home extends State<Home>{
-
-    int korzina = 0;
-
-    void kor_update(){
-      setState(
-        () {
-          korzina++; 
-        }
-      );
-    }
-
     @override
     Widget build(BuildContext context) {
+
+      final korzina = context.watch<KorzinaPlus>();
+
       return DefaultTabController(
         length: 4, 
         child: Scaffold(
@@ -107,7 +102,7 @@ class _Home extends State<Home>{
                   text: "История",
                 ),
                 Tab(
-                  icon: icon_baidge(korzina),
+                  icon: icon_baidge(korzina.count),
                   text: "Корзина",
                 ),
                 Tab(
@@ -119,10 +114,10 @@ class _Home extends State<Home>{
           ),
           body: TabBarView(
             children: [
-              pizza(context, kor_update),
-              history(context),
-              order(context),
-              account(context)
+              Pizza(),
+              History(),
+              Order(),
+              Account()
             ]
           ),
           backgroundColor: Color.fromARGB(255, 255, 255, 255),

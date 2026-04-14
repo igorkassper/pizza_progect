@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class Order_change extends StatefulWidget{
   Order_change({super.key});
 
@@ -303,7 +305,7 @@ class _Order_change extends State<Order_change>{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    Expanded(
                       child: ElevatedButton(
                         onPressed: (){
                           testo(0);
@@ -324,7 +326,7 @@ class _Order_change extends State<Order_change>{
                         
                       ),
                     ),
-                    Container(
+                    Expanded(
                       child: ElevatedButton(
                         onPressed: (){
                           testo(1);
@@ -391,14 +393,13 @@ class _Order_change extends State<Order_change>{
                                   height: 80,
                                 ),
                                 Text(
-                                  "Ароматная свинина",
+                                  "Ароматная говядина",
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   style: TextStyle(
                                     color: const Color.fromARGB(255, 80, 80, 80),
                                     fontSize: 12,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
                                 Text(
                                   "119 ₽",
@@ -421,25 +422,25 @@ class _Order_change extends State<Order_change>{
           ],
         ),
         bottomNavigationBar: Container(
-              margin: EdgeInsets.all(20),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.pop(context, 1);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 223, 48, 47),
-                  fixedSize: Size(250, 40),
-                ),
-                child: Text(
-                  "Добавить в корзину",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
+          margin: EdgeInsets.all(20),
+          child: ElevatedButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 223, 48, 47),
+              fixedSize: Size(250, 40),
+            ),
+            child: Text(
+              "В корзину за 899",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
+          ),
+        ),
       );
     }
 }

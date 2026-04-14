@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/provid/email_and_name_rename.dart';
+
 
 class Account_rename extends StatefulWidget{
   Account_rename({super.key});
@@ -8,10 +11,15 @@ class Account_rename extends StatefulWidget{
 
 class _Account_rename extends State<Account_rename>{
   
-  late final TextEditingController _nameform = TextEditingController(text: "Игорь");
+  
   
   @override
   Widget build(BuildContext context) {
+
+    final name = context.watch<EmailNameRen>();
+
+    final TextEditingController _nameform = TextEditingController(text: "${name.name}");
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -137,6 +145,7 @@ class _Account_rename extends State<Account_rename>{
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: (){
+                    context.read<EmailNameRen>().name_ren(_nameform.text);
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(

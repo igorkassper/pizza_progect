@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/provid/korzinaplus.dart';
+
+
 
 class Pizza_add extends StatefulWidget{
   Pizza_add({super.key});
@@ -303,7 +307,7 @@ class _Pizza_add extends State<Pizza_add>{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    Expanded(
                       child: ElevatedButton(
                         onPressed: (){
                           testo(0);
@@ -324,7 +328,7 @@ class _Pizza_add extends State<Pizza_add>{
                         
                       ),
                     ),
-                    Container(
+                    Expanded(
                       child: ElevatedButton(
                         onPressed: (){
                           testo(1);
@@ -420,25 +424,26 @@ class _Pizza_add extends State<Pizza_add>{
           ],
         ),
         bottomNavigationBar: Container(
-              margin: EdgeInsets.all(20),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.pop(context, 1);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 223, 48, 47),
-                  fixedSize: Size(250, 40),
-                ),
-                child: Text(
-                  "Добавить в корзину",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
+          margin: EdgeInsets.all(20),
+          child: ElevatedButton(
+            onPressed: (){
+              context.read<KorzinaPlus>().increment();
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 223, 48, 47),
+              fixedSize: Size(250, 40),
+            ),
+            child: Text(
+              "В корзину за 899",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
+          ),
+        ),
       );
     }
 }
