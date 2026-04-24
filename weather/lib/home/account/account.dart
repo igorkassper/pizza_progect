@@ -3,7 +3,7 @@ import 'package:weather/autification/auth.dart';
 import 'package:weather/home/account/account_email.dart';
 import 'package:weather/home/account/account_rename.dart';
 import 'package:provider/provider.dart';
-import 'package:weather/provid/email_and_name_rename.dart';
+import 'package:weather/provid/data_user_provid.dart';
 
 class Account extends StatelessWidget{ 
 
@@ -11,8 +11,16 @@ class Account extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    final data = context.watch<EmailNameRen>();
+    final data = context.watch<Data_User_Provid>();
 
+    List split_date = data.date_birth.split("/");
+
+    List mas_month = ["Января", "Февраля", 
+    "Марта", "Апреля", "Мая", "Июня", 
+    "Июля", "Августа", "Сентября", "Октября", 
+    "Ноября", "Декабря"];
+
+    String month = mas_month[(int.parse(split_date[1])) - 1];
 
     return Center(
     child: ListView(
@@ -283,7 +291,7 @@ class Account extends StatelessWidget{
                   ),
                   Padding(padding: EdgeInsets.only(left: 10)),
                   Text(
-                    "6 января",
+                    "${int.parse(split_date[0])} ${month}",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 14,
@@ -309,7 +317,7 @@ class Account extends StatelessWidget{
                   ),
                   Padding(padding: EdgeInsets.only(left: 10)),
                   Text(
-                    "+7 (913) 015-26-54",
+                    "${data.phone}",
                     style: TextStyle(
                       color: const Color.fromARGB(255, 46, 46, 46),
                       fontSize: 14,
@@ -416,25 +424,25 @@ class Account extends StatelessWidget{
             ),
           ],
         ),
-        Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 248, 248, 248),
-              shadowColor: Color.fromARGB(0, 255, 255, 255),
-              overlayColor: Color.fromARGB(255, 158, 158, 158),
-              padding: EdgeInsets.all(20),
-            ),
-            onPressed: (){},
-            child: Text(
-              "Удалить аккаунт",
-              style: TextStyle(
-                color: const Color.fromARGB(255, 46, 46, 46),
-              ),
-            ),
-          ),
-        ),
+        // Container(
+        //   height: 100,
+        //   alignment: Alignment.center,
+        //   child: ElevatedButton(
+        //     style: ElevatedButton.styleFrom(
+        //       backgroundColor: Color.fromARGB(255, 248, 248, 248),
+        //       shadowColor: Color.fromARGB(0, 255, 255, 255),
+        //       overlayColor: Color.fromARGB(255, 158, 158, 158),
+        //       padding: EdgeInsets.all(20),
+        //     ),
+        //     onPressed: (){},
+        //     child: Text(
+        //       "Удалить аккаунт",
+        //       style: TextStyle(
+        //         color: const Color.fromARGB(255, 46, 46, 46),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     )
   );

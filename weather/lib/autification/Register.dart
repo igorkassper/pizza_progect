@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
 // библиотека для создания масок ввода данных
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:provider/provider.dart';
 import 'package:weather/autification/auth.dart';
-
 import 'cms_message.dart';
 
+import 'package:weather/backend_client/register_backend.dart';
 
-Future<bool> readJsonFile(String password, String numberPhone) async {
-  final contents = await rootBundle.loadString('assets/db/users.json');
-  final data = jsonDecode(contents);
-  bool availability = false;
+import 'package:weather/provid/data_user_provid.dart';
 
-  for(var obj in data["users"]){
-    if(obj["tel"] == numberPhone && obj["password"] == password){
-      availability = true;
-    }
-  }
-  return availability;
-
-}
 
 
 class Register extends StatefulWidget{
@@ -52,6 +40,43 @@ class _Register extends State<Register>{
   String name = "";
   String email = "";
   String dateBirn = "";
+
+  Future<void> register_post() async{
+    final res = await Register_back.res(name, email, numberPhone, password, dateBirn);
+
+    if(res["status"] == "success"){
+
+      String user_id = res["user_id"];
+
+      context.read<Data_User_Provid>().name_ren(name);
+      context.read<Data_User_Provid>().email_ren(email);
+      context.read<Data_User_Provid>().date_birth_ren(dateBirn);
+      context.read<Data_User_Provid>().phone_ren(numberPhone);
+      context.read<Data_User_Provid>().user_id_ren(user_id);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context){
+            return Cms();
+          }
+        )
+      );
+    } else if(res["status"] == "error"){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Не удалось создать аккаунт')),
+      );
+    } else if(res["status"] == "account"){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Аккаунт с такими данными уже создан')),
+      );
+    }
+      else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Проверьте подключение к инету')),
+      );
+    }
+  }
 
 
   @override
@@ -180,6 +205,37 @@ class _Register extends State<Register>{
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
+                  width: 350,
+                  child: TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border:OutlineInputBorder(),
+                      hintText: "Пароль",
+                      labelText: 'Введите свой пароль повторно',
+                      icon: Icon(Icons.password),
+                      
+                    ),
+                    validator: (value){
+                      if(value == null || value.isEmpty){
+                        return "Введите пароль повторно";
+                      }
+                        if(
+                          value.length < 10 || 
+                          !value.contains(RegExp(r'[A-Z]')) || 
+                          !value.contains(RegExp(r'[a-z]')) || 
+                          !value.contains(RegExp(r'[0-9]'))
+                        ){
+                        return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
+                      }
+                      if(password != value){
+                        return "Пароли не совпадают";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Container(
                   padding: EdgeInsets.only(top: 20, bottom: 15, right: 16, left: 16),
                   width: 350,
                   child: TextFormField(
@@ -265,15 +321,8 @@ class _Register extends State<Register>{
                     onPressed: (){
                       // проверка данных и переход на экран с cmc сообщением
                       if(_fornKey.currentState!.validate()){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context){
-                                return Cms(numberPhone: numberPhone, password: password);
-                              }
-                            )
-                          );
-                        }
+                        register_post();
+                      }
                     },
                     child:Padding(
                       padding: EdgeInsets.all(10),

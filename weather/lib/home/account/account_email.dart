@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather/provid/email_and_name_rename.dart';
+import 'package:weather/provid/data_user_provid.dart';
+
+import 'package:weather/backend_client/rename_email.dart';
 
 
 class Account_email extends StatefulWidget{
@@ -11,14 +13,31 @@ class Account_email extends StatefulWidget{
 
 class _Account_email extends State<Account_email>{
   
-  
+  Future<void> email_rename(String email_form, var data) async{
+
+    String id = data.user_id;
+
+    final res = await Rename_email_back.res(id, email_form);
+
+    if(res["status"] == "success"){
+      Navigator.pop(context);
+    } else if(res["status"] == "error"){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Не удалось изменить данные')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Проверьте подключение к инету')),
+      );
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
 
-    final email = context.watch<EmailNameRen>();
+    final email = context.watch<Data_User_Provid>();
 
-    final TextEditingController _nameform = TextEditingController(text: "${email.email}");
+    final TextEditingController _emailform = TextEditingController(text: "${email.email}");
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -98,7 +117,7 @@ class _Account_email extends State<Account_email>{
                 Container(
                   // width: 250,
                   child: TextField(
-                    controller: _nameform,
+                    controller: _emailform,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "Email",
@@ -145,8 +164,9 @@ class _Account_email extends State<Account_email>{
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: (){
-                    context.read<EmailNameRen>().email_ren(_nameform.text);
-                    Navigator.pop(context);
+                    var data = context.read<Data_User_Provid>();
+                    email_rename(_emailform.text, data);
+                    context.read<Data_User_Provid>().email_ren(_emailform.text);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromARGB(255, 223, 48, 47),

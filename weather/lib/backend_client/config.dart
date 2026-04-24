@@ -1,0 +1,1 @@
+String url_main = "http://localhost:8080";

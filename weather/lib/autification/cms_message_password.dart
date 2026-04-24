@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '../home/home.dart';
+import 'package:weather/autification/new_password.dart';
 
 
-class Cms extends StatefulWidget{
+class Cms_Message_Pas extends StatefulWidget{
 
   @override
-  State<Cms> createState() => _Cms();
+  State<Cms_Message_Pas> createState() => _Cms_Message_Pas();
 }
 
-class _Cms extends State<Cms>{
+class _Cms_Message_Pas extends State<Cms_Message_Pas>{
 
     final _fornKey = GlobalKey<FormState>();
 
@@ -81,7 +82,7 @@ class _Cms extends State<Cms>{
                           context,
                           MaterialPageRoute(
                             builder: (context){
-                              return Home();
+                              return New_password();
                             }
                           )
                         );

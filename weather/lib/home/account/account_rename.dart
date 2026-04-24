@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather/provid/email_and_name_rename.dart';
+import 'package:weather/provid/data_user_provid.dart';
+
+import 'package:weather/backend_client/rename_name.dart';
 
 
 class Account_rename extends StatefulWidget{
@@ -10,13 +12,31 @@ class Account_rename extends StatefulWidget{
 }
 
 class _Account_rename extends State<Account_rename>{
-  
-  
+
+
+  Future<void> name_rename(String name_form, var data) async{
+
+    String id = data.user_id;
+
+    final res = await Rename_name_back.res(id, name_form);
+
+    if(res["status"] == "success"){
+      Navigator.pop(context);
+    } else if(res["status"] == "error"){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Не удалось изменить данные')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Проверьте подключение к инету')),
+      );
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
 
-    final name = context.watch<EmailNameRen>();
+    final name = context.watch<Data_User_Provid>();
 
     final TextEditingController _nameform = TextEditingController(text: "${name.name}");
 
@@ -145,8 +165,9 @@ class _Account_rename extends State<Account_rename>{
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: (){
-                    context.read<EmailNameRen>().name_ren(_nameform.text);
-                    Navigator.pop(context);
+                    var data = context.read<Data_User_Provid>();
+                    name_rename(_nameform.text, data);
+                    context.read<Data_User_Provid>().name_ren(_nameform.text);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromARGB(255, 223, 48, 47),

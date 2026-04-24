@@ -1,26 +1,15 @@
 import 'package:flutter/material.dart';
 // библиотека для создания масок ввода данных
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:weather/autification/register.dart';
 
+import 'package:weather/backend_client/auth_backend.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/provid/data_user_provid.dart';
+
 import 'cms_message.dart';
+import 'bring_password.dart';
 
-
-Future<bool> readJsonFile(String password, String numberPhone) async {
-  final contents = await rootBundle.loadString('assets/db/users.json');
-  final data = jsonDecode(contents);
-  bool availability = false;
-
-  for(var obj in data["users"]){
-    if(obj["tel"] == numberPhone && obj["password"] == password){
-      availability = true;
-    }
-  }
-  return availability;
-
-}
 
 class Auth extends StatefulWidget{
   const Auth({super.key});
@@ -43,6 +32,41 @@ class _Auth extends State<Auth>{
   String numberPhone = "";
   String password = "";
 
+  Future<void> auth_post() async{
+    final res = await Auth_back.res(numberPhone, password);
+
+    if(res["status"] == "success"){
+
+      var data = res["data"];
+
+      print(data["ID"]);
+
+      String id_user = data["ID"].toString();
+
+      context.read<Data_User_Provid>().name_ren(data["NAME"]);
+      context.read<Data_User_Provid>().email_ren(data["EMAIL"]);
+      context.read<Data_User_Provid>().date_birth_ren(data["DATE"]);
+      context.read<Data_User_Provid>().phone_ren(data["PHONE"]);
+      context.read<Data_User_Provid>().user_id_ren(id_user);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context){
+            return Cms();
+          }
+        )
+      );
+    } else if(res["status"] == "no_user"){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Неверный логин или пароль')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Проверьте подключение к инету')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,13 +158,13 @@ class _Auth extends State<Auth>{
                         context,
                         MaterialPageRoute(
                           builder: (context){
-                            return Register();
+                            return Bring_Pass();
                           }
                         )
                       );
                     }, 
                     child: Text(
-                      "Еще нет аккаунта?",
+                      "Не помню пароль",
                       style: TextStyle(
                         color: Colors.black,
                         decoration: TextDecoration.underline
@@ -159,37 +183,7 @@ class _Auth extends State<Auth>{
                     onPressed: (){
                       // проверка данных и переход на экран с cmc сообщением
                       if(_fornKey.currentState!.validate()){
-                        // проверка в базе данных есть ли наш пользователь
-                        readJsonFile(password, numberPhone).then((value) {
-                        if(value){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context){
-                                return Cms(numberPhone: numberPhone, password: password);
-                              }
-                            )
-                          );
-                        } else{
-                          // в случае если пользователя нет или неправильны данные вызывется сообщени
-                          final snackBar = SnackBar(
-                            backgroundColor: Color.fromARGB(255, 223, 48, 47),
-                            duration: Duration(seconds: 5),
-                            content: Text("Неверный пароль или логин"),
-                            behavior: SnackBarBehavior.floating,
-                            dismissDirection: DismissDirection.none,
-                            showCloseIcon: true,
-                            action: SnackBarAction(
-                              label: "Закрыть", 
-                              onPressed: (){
-
-                              }
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                        });
+                        auth_post();
                       }
                     },
                     child:Padding(
@@ -202,6 +196,33 @@ class _Auth extends State<Auth>{
                         ),
                       ),
                     ),
+                  ),
+                ),
+                Padding(padding: EdgeInsets.all(5)),
+                Container(
+                  child: TextButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                      shadowColor: const Color.fromARGB(0, 255, 255, 255),
+                      overlayColor: const Color.fromARGB(0, 255, 255, 255),
+                    ),
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context){
+                            return Register();
+                          }
+                        )
+                      );
+                    }, 
+                    child: Text(
+                      "Еще нет аккаунта?",
+                      style: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline
+                      ),
+                    )
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(30))
