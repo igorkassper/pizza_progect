@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather/backend_client/giva_data_subliments_backend.dart';
+import 'package:weather/provid/data_pizza_is_db_provid.dart';
+import 'package:weather/provid/data_subliments_is_db_provid.dart';
 import 'package:weather/provid/korzinaplus.dart';
+import 'package:weather/provid/korzina.dart';
 
+
+import 'package:visibility_detector/visibility_detector.dart';
 
 
 class Pizza_add extends StatefulWidget{
-  Pizza_add({super.key});
+  int user_id;
+  Pizza_add({super.key, required this.user_id});
 
   State<Pizza_add> createState() => _Pizza_add();
 }
@@ -18,10 +25,26 @@ Color color_check_but = Color.fromARGB(255, 255, 255, 255);
 
 class _Pizza_add extends State<Pizza_add>{
 
+    int dop_point = 0;
+
+    bool start_val = true;
+
+
+    var data;
+    var data_parce_pizza;
+    var data_parce;
+    late int data_len;
+    
+
+    int cost = 0;
+    int base_cost = 0;
+
+    bool loading = false;
+
     List<Color> backblackcolor = [
-      color_nocheck_but,
-      color_nocheck_but,
       color_check_but,
+      color_nocheck_but,
+      color_nocheck_but,
       color_nocheck_but,
       color_nocheck_but,
       color_nocheck_but,
@@ -43,16 +66,6 @@ class _Pizza_add extends State<Pizza_add>{
       [color_check_but,1],
       [color_check_but,1],
       [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
-      [color_check_but,1],
     ];
     
     void backcolor(int index){
@@ -61,8 +74,37 @@ class _Pizza_add extends State<Pizza_add>{
           backblackcolor[i] = color_nocheck_but;
         }
         backblackcolor[index] = color_check_but;
+
+        switch (index) {
+          case 0:
+            cost = base_cost * 1;
+            break;
+          case 1:
+            cost = (base_cost * 1.2).toInt();
+            // print("1");
+            break;
+          case 2:
+            cost = (base_cost * 2).toInt();
+            print("2");
+            break;
+          case 3:
+            cost = (base_cost * 2.5).toInt();
+            // print("3");
+            break;
+          case 4:
+            cost = (base_cost * 3).toInt();
+            // print("4");
+
+            break;
+          case 5:
+            cost = (base_cost * 4).toInt();
+            break;
+        }
+
       });
     }
+
+    
 
     void testo(int index){
       setState(() {
@@ -76,16 +118,94 @@ class _Pizza_add extends State<Pizza_add>{
     void dop(int index, int status){
       setState(() {
         if(status == 0){
-          dop_check[index][0] = color_check_but;
+          if(dop_check[index][1] == 0){
+            dop_check[index][0] = color_check_but;
+            dop_check[index][1] = 1;
+            dop_point--;
+            cost -= data_parce[index]["COST"] as int;
+          }
         } else{
-          dop_check[index][0] = color_nocheck_but;
+          if(dop_point == 3){
+          } else{
+            dop_check[index][0] = color_nocheck_but;
+            dop_check[index][1] = 0;
+            dop_point++;
+            cost += data_parce[index]["COST"] as int;
+          }
         }
       });
     }
 
+
+    Future<void> _loadSublimentsData() async {    
+      try {
+        var res = await Give_Data_Subliments.res();
+        
+        if (res["status"] == "success") {
+          List<dynamic> data = res["data"] as List<dynamic>;
+          context.read<Data_Subliments>().data_ren(data);
+          loading = true;
+        } else {
+          loading = false;
+        }
+      } catch (e) {
+        print("Ошибка загрузки: $e");
+      }
+    }
+
+
+    @override
+    void initState() {
+      super.initState();
+      _loadSublimentsData();
+    }
+
+    
+    void set_data_pizza_inf(var context){
+        data = Provider.of<Data_Subliments>(context);
+        data_len = data.data_sub.length;
+        data_parce = data.data_sub;
+
+        var data_pizza = Provider.of<Data_Pizza>(context);
+        data_parce_pizza = data_pizza.data_pizza;
+
+        if(start_val){
+          base_cost = data_parce_pizza[widget.user_id]["COST"];
+          cost = base_cost;
+          start_val = false;
+        }
+    }
+
     @override
     Widget build(BuildContext context) {
-      return Scaffold(
+      set_data_pizza_inf(context);
+      // print(data_parce);
+
+      if(loading == false){
+        return VisibilityDetector(
+          key: const Key('pizza'),
+          onVisibilityChanged: (VisibilityInfo info) {
+            if (info.visibleFraction > 0.5) {
+              _loadSublimentsData();
+            }
+          },
+          child:Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: Text("Интернета нет"),
+            ),
+          ) 
+        );
+      }
+
+      return VisibilityDetector(
+        key: const Key('pizza'),
+        onVisibilityChanged: (VisibilityInfo info) {
+          if (info.visibleFraction > 0.5) {
+            _loadSublimentsData();
+          }
+        },
+        child: Scaffold(
         backgroundColor: Colors.white,
           appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -144,13 +264,13 @@ class _Pizza_add extends State<Pizza_add>{
               Padding(padding:EdgeInsets.only(top: 20)),
               Image(
                 fit: BoxFit.contain,
-                image: AssetImage("assets/img/pizza_card.png",)
+                image: AssetImage("assets/img/pizza_cards/${widget.user_id+1}.jpg",)
               ),
               Container(
                 padding: EdgeInsets.only(left: 10,),
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Сырная пицца",
+                  "${data_parce_pizza[widget.user_id]["NAME"]}",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: const Color.fromARGB(255, 48, 48, 48),
@@ -162,7 +282,7 @@ class _Pizza_add extends State<Pizza_add>{
               Container(
                 padding: EdgeInsets.only(left: 10,top: 10),
                 child: Text(
-                  "Сочная свиная шея в сочетании с острой говядиной, пикантной пепперони, беконом и моцареллой, заправленная фирменным томатным соусом.",
+                  "${data_parce_pizza[widget.user_id]["DESCRIPTION"]}",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: const Color.fromARGB(255, 80, 80, 80),
@@ -363,7 +483,7 @@ class _Pizza_add extends State<Pizza_add>{
                   childAspectRatio: 1/1,
                   children:
                   List.generate(
-                    20, 
+                    data_len, 
                     (index){
                       return Center(
                         child: GridTile(
@@ -371,11 +491,9 @@ class _Pizza_add extends State<Pizza_add>{
                           ElevatedButton(
                             onPressed: () {
                               if(dop_check[index][1] == 0){
-                                dop(index, 0);
-                                dop_check[index][1] = 1;
+                                dop(index, 0);             
                               } else{
-                              dop(index, 1);
-                                dop_check[index][1] = 0;
+                                dop(index, 1);
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -390,12 +508,12 @@ class _Pizza_add extends State<Pizza_add>{
                               children: [
                                 Image(
                                   fit: BoxFit.contain,
-                                  image: AssetImage("assets/img/dop.png",),
+                                  image: AssetImage("assets/img/dop/${index+1}.jpg",),
                                   width: 80,
                                   height: 80,
                                 ),
                                 Text(
-                                  "Ароматная говядина",
+                                  "${data_parce[index]['NAME']}",
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   style: TextStyle(
@@ -404,7 +522,7 @@ class _Pizza_add extends State<Pizza_add>{
                                   ),
                                 ),
                                 Text(
-                                  "119 ₽",
+                                  "${data_parce[index]['COST']}",
                                   style: TextStyle(
                                     color: const Color.fromARGB(255, 80, 80, 80),
                                     fontWeight: FontWeight.bold,
@@ -427,6 +545,39 @@ class _Pizza_add extends State<Pizza_add>{
           margin: EdgeInsets.all(20),
           child: ElevatedButton(
             onPressed: (){
+
+              List cm_pizza = ["20", "25", "30", "35", "40", "50"];
+              int increm1 = 0;
+              for(var i in backblackcolor){
+                if(i == color_check_but){
+                  break;
+                }
+                increm1++;
+              }
+              String cm_res = cm_pizza[increm1];
+
+              String testo_res = testo_check[0] == color_check_but ? "Традиционная" : "Тонкое";
+
+              List dop_res = [];
+              int increm2 = 0;
+              for(var i in dop_check){
+                if(i[1] == 0){
+                  dop_res.add(increm2);
+                }
+                increm2++;
+              }
+
+              Map<String, dynamic> data_res = {
+                "id_pizza": widget.user_id,
+                "cm": cm_res,
+                "testo": testo_res,
+                "dops": dop_res,
+                "cost": cost,
+                "count": 1
+              };
+
+              context.read<Korzina>().add_korzina(data_res);
+
               context.read<KorzinaPlus>().increment();
               Navigator.pop(context);
             },
@@ -435,7 +586,7 @@ class _Pizza_add extends State<Pizza_add>{
               fixedSize: Size(250, 40),
             ),
             child: Text(
-              "В корзину за 899",
+              "В корзину за ${cost}",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -444,6 +595,7 @@ class _Pizza_add extends State<Pizza_add>{
             ),
           ),
         ),
+      )
       );
     }
 }

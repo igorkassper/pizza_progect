@@ -8,6 +8,7 @@ import 'package:weather/provid/korzinaplus.dart';
 
 
 
+
 Widget icon_baidge(int korzina) {
   return Stack(
     children: [
@@ -43,7 +44,6 @@ class Home extends StatefulWidget{
 
   State<Home> createState() => _Home();
 }
-
 
 
 class _Home extends State<Home>{

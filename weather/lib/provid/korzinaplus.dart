@@ -10,4 +10,9 @@ class KorzinaPlus extends ChangeNotifier {
     _count++;
     notifyListeners(); 
   }
+
+  void deincrement() {
+    _count--;
+    notifyListeners(); 
+  }
 }

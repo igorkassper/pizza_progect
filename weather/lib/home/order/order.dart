@@ -1,25 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:weather/home/order/order_change.dart';
 import 'package:weather/home/order/order_view.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/provid/korzina.dart';
+import 'package:weather/provid/data_pizza_is_db_provid.dart';
+import 'package:weather/provid/korzinaplus.dart';
 
 
-class Order extends StatelessWidget {
+
+class Order extends StatefulWidget {
+  Order({super.key});
+
+
+  State<Order> createState() => _Order();
+}
+
+
+
+class _Order extends State<Order> {
 
   @override
   Widget build(BuildContext context) {
+
+    var data = context.watch<Korzina>().data_pizza;
+    var data_pizza = context.watch<Data_Pizza>().data_pizza;
+
+    int len_data = data.length;
+
+    int sum = 0;
+    for(var element in data){
+      sum += (element["cost"] as int) * (element["count"] as int);
+    }
+
+
+
+
+    if(len_data == 0){
+      return Center(
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              fit: BoxFit.contain,
+              image: AssetImage("assets/img/korzina_pusta_icon.png"),
+              width: 120,
+              height: 120,
+            ),
+            Padding(padding: EdgeInsets.all(10)),
+            Text(
+              "Корзина пуста",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600
+              ),
+            ),
+          ],
+        ) 
+      );
+    }
+    
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Center(
           child: ListView(
             padding: EdgeInsets.all(16),
-            children: [
-              Container(
+            children:
+            List.generate(len_data, (index){
+
+              return Container(
+                padding: EdgeInsets.only(bottom: 20),
                 child: Row(
                   children: [
                     Image(
                       fit: BoxFit.contain,
-                      image: AssetImage("assets/img/pizza_card.png"),
+                      image: AssetImage("assets/img/pizza_cards/${data[index]["id_pizza"]+1}.jpg"),
                       width: 120,
                       height: 120,
                     ),
@@ -33,7 +87,7 @@ class Order extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Сырная пицца",
+                                "${data_pizza[data[index]["id_pizza"]]["NAME"]}",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 46, 46, 46),
                                   fontWeight: FontWeight.bold,
@@ -43,14 +97,9 @@ class Order extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return Order_change();
-                                      },
-                                    ),
-                                  );
+                                  context.read<Korzina>().delete(index);
+                                  context.read<KorzinaPlus>().deincrement();
+
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color.fromARGB(255, 243, 243, 247),
@@ -63,7 +112,7 @@ class Order extends StatelessWidget {
                                   visualDensity: VisualDensity.compact,
                                 ),
                                 child: Icon(
-                                  Icons.more_horiz,
+                                  Icons.delete_outline,
                                   color: Color.fromARGB(255, 48, 48, 48),
                                   size: 15,
                                 ),
@@ -72,7 +121,7 @@ class Order extends StatelessWidget {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            "30 см, Традиционное\nдобавки (3)",
+                            "${data[index]["cm"]} см, ${data[index]["testo"]}\nдобавки (${(data[index]["dops"]).length})",
                             style: TextStyle(
                               color: const Color.fromARGB(255, 46, 46, 46),
                               fontSize: 12,
@@ -83,7 +132,7 @@ class Order extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "899 ₽",
+                                "${data[index]["cost"]*data[index]["count"]} ₽",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: const Color.fromARGB(255, 46, 46, 46),
@@ -94,7 +143,9 @@ class Order extends StatelessWidget {
                               Row(
                                 children: [
                                   ElevatedButton(
-                                    onPressed: (){}, 
+                                    onPressed: (){
+                                      context.read<Korzina>().plus(index);
+                                    }, 
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Color.fromARGB(255, 243, 243, 247),
                                       shadowColor: Color.fromARGB(255, 255, 255, 255),
@@ -112,10 +163,14 @@ class Order extends StatelessWidget {
                                     )
                                   ),
                                   Padding(padding: EdgeInsets.only(left: 10)),
-                                  Text("1"),
+                                  Text("${data[index]["count"]}"),
                                   Padding(padding: EdgeInsets.only(left: 10)),
                                   ElevatedButton(
-                                    onPressed: (){}, 
+                                    onPressed: (){
+                                      if(data[index]["count"] > 1){
+                                        context.read<Korzina>().minus(index);
+                                      }
+                                    }, 
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Color.fromARGB(255, 243, 243, 247),
                                       shadowColor: Color.fromARGB(255, 255, 255, 255),
@@ -143,14 +198,16 @@ class Order extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
+              );
+            }),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(0),
           child: Container(
-            height: 80,
+            padding: EdgeInsets.all(20),
+            color: Color.fromARGB(230, 255, 255, 255),
+            height: 120,
             child: Column(
               children: [
                 Row(
@@ -165,7 +222,7 @@ class Order extends StatelessWidget {
                       )
                     ),
                     Text(
-                      "99900 ₽",
+                      "${sum} ₽",
                       style:TextStyle(
                         fontSize: 16,
                         color: Colors.black,
