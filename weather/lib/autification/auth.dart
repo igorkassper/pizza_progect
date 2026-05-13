@@ -20,7 +20,7 @@ class Auth extends StatefulWidget{
 
 
 // маска формата номера телефона
-var phoneFormatter = MaskTextInputFormatter(
+final phoneFormatter = MaskTextInputFormatter(
   mask: '+7 (###) ###-##-##',
   filter: { "#": RegExp(r'[0-9]') },
 );
@@ -38,8 +38,6 @@ class _Auth extends State<Auth>{
     if(res["status"] == "success"){
 
       var data = res["data"];
-
-      print(data["ID"]);
 
       String id_user = data["ID"].toString();
 
@@ -189,7 +187,7 @@ class _Auth extends State<Auth>{
                     child:Padding(
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        "Отправить",
+                        "Войти",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,

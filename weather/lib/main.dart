@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather/backend_client/give_data_pizza_backend.dart';
 import 'package:weather/provid/data_subliments_is_db_provid.dart';
 import 'package:weather/provid/korzina.dart';
 import 'package:weather/provid/korzinaplus.dart';
 import 'package:weather/provid/data_user_provid.dart';
 import 'package:weather/provid/data_pizza_is_db_provid.dart';
 import 'package:weather/autification/Register.dart';
+import 'package:weather/provid/order_give_provid.dart';
 import 'autification/auth.dart';
 import 'home/home.dart';
 
@@ -18,6 +20,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => Data_Pizza()),
         ChangeNotifierProvider(create: (context) => Data_Subliments()),
         ChangeNotifierProvider(create: (context) => Korzina()),
+        ChangeNotifierProvider(create: (context) => Order_give_provid()),
       ],
       child: MyApp(),
     )

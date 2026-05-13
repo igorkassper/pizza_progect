@@ -20,7 +20,7 @@ class Register extends StatefulWidget{
 
 
 // маска формата номера телефона
-var phoneFormatter = MaskTextInputFormatter(
+final phoneFormatter = MaskTextInputFormatter(
   mask: '+7 (###) ###-##-##',
   filter: { "#": RegExp(r'[0-9]') },
 );

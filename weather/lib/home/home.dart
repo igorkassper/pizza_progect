@@ -6,7 +6,8 @@ import 'history/history.dart';
 import 'order/order.dart';
 import 'package:weather/provid/korzinaplus.dart';
 
-
+import 'package:weather/backend_client/give_data_account_backend.dart';
+import 'package:weather/provid/data_user_provid.dart';
 
 
 Widget icon_baidge(int korzina) {
@@ -39,6 +40,9 @@ Widget icon_baidge(int korzina) {
 }  
 
 
+
+
+
 class Home extends StatefulWidget{
   Home({super.key});
 
@@ -47,11 +51,80 @@ class Home extends StatefulWidget{
 
 
 class _Home extends State<Home>{
+
+    bool loading = false;
+
+
+    Future<void> _loading_data() async{
+
+      // вот это раскоментить надо
+      // String user_id = context.read<Data_User_Provid>().user_id;
+      // это вариант заглушка
+      String user_id = "3";
+
+      final res = await Give_data_accoun_back.res(user_id);
+
+      if(res["status"] == "success"){
+
+        var data = res["data"];
+        String id_user = data["ID"].toString();
+        String coins = res["coins"].toString();
+
+        context.read<Data_User_Provid>().name_ren(data["NAME"]);
+        context.read<Data_User_Provid>().email_ren(data["EMAIL"]);
+        context.read<Data_User_Provid>().date_birth_ren(data["DATE"]);
+        context.read<Data_User_Provid>().phone_ren(data["PHONE"]);
+        context.read<Data_User_Provid>().user_id_ren(id_user);
+        context.read<Data_User_Provid>().coins_ren(coins);
+
+        set();
+        
+      }
+    }
+
+    void set(){
+      setState((){
+        loading = true;
+      });
+    }
+
     @override
     Widget build(BuildContext context) {
 
       final korzina = context.watch<KorzinaPlus>();
+      
+      _loading_data();
 
+      if(loading == false){
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Интернета нет",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+                Padding(padding: EdgeInsets.only(bottom: 30)),
+                IconButton(
+                  onPressed: (){
+                    _loading_data();
+                  }, 
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 50,
+                  )
+                )
+              ],
+            )
+            
+          ),
+        );
+      }
       return DefaultTabController(
         length: 4, 
         child: Scaffold(

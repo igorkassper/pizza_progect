@@ -17,6 +17,9 @@ class Data_User_Provid extends ChangeNotifier {
 
   String _phone = "";
   String get phone => _phone;
+
+  String _coins = "";
+  String get coins => _coins;
   
   void name_ren(name_rename) {
     _name = name_rename;
@@ -40,6 +43,11 @@ class Data_User_Provid extends ChangeNotifier {
 
   void user_id_ren(user_id) {
     _user_id = user_id;
+    notifyListeners(); 
+  }
+
+  void coins_ren(coins) {
+    _coins = coins;
     notifyListeners(); 
   }
 }

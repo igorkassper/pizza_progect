@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/provid/order_give_provid.dart';
+import 'package:weather/provid/data_user_provid.dart';
+import 'package:weather/provid/data_pizza_is_db_provid.dart';
+
+import 'package:weather/backend_client/fitbek_backend.dart';
 
 
 class History_card extends StatefulWidget{
-  History_card({super.key});
+  int id_order;
+  History_card({super.key, required this.id_order});
 
   State<History_card> createState() => _History_card();
 }
@@ -11,6 +18,7 @@ class History_card extends StatefulWidget{
 
 class _History_card extends State<History_card>{
 
+  bool star_bool = true;
 
   List stars_conf = [
     Icons.star_border,
@@ -20,7 +28,18 @@ class _History_card extends State<History_card>{
     Icons.star_border,
   ];
 
-  void star(int param){
+   Future<void> _loading_data(int param, var id_order) async{
+
+    final res = await Add_Order_back.res(param, id_order);
+
+    if(res["status"] == "success"){
+
+      star_bool = false;
+
+    }
+  }
+
+  void star(int param, var id_order){
     setState(() {
       for(int i = 0; i < 5; i++){
         stars_conf[i] = Icons.star_outline;
@@ -29,9 +48,17 @@ class _History_card extends State<History_card>{
         stars_conf[i] = Icons.star;
       }
     });
+    _loading_data(param, id_order);
   }
 
   Widget build(BuildContext context) {
+
+    final data_order_give = context.watch<Order_give_provid>();
+    List<dynamic> data = data_order_give.order_give;
+
+
+    List position_data = data[widget.id_order]["position"];
+
     return Scaffold(
       backgroundColor: Colors.white,
         appBar: AppBar(
@@ -96,7 +123,7 @@ class _History_card extends State<History_card>{
                       ),
                       Container(
                         child: Text(
-                          "Заказ №0001",
+                          "Заказ ${data[widget.id_order]["NUMBER_ORDER"].toString().padLeft(4, '0')}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500
@@ -124,7 +151,7 @@ class _History_card extends State<History_card>{
                       ),
                       Padding(padding: EdgeInsets.only(left: 10)),
                       Text(
-                        "Закрыт",
+                        "${data[widget.id_order]["STATUS_ORDER"]}",
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -145,7 +172,7 @@ class _History_card extends State<History_card>{
                       ),
                       Padding(padding: EdgeInsets.only(left: 10)),
                       Text(
-                        "Оплачен",
+                        "${data[widget.id_order]["STATUS_OPLATA"]}",
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -157,7 +184,7 @@ class _History_card extends State<History_card>{
                   Padding(padding: EdgeInsets.only(top: 10)),
                   Container(
                     child: Text(
-                      "Самовывоз",
+                      "${data[widget.id_order]["TYPE_ORDER"]}",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -165,7 +192,7 @@ class _History_card extends State<History_card>{
                     )
                   ),
                   Text(
-                    "Охотская 88, Новосибирск",
+                    "${data[widget.id_order]["ADRESS"]}, Новосибирск",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
@@ -182,56 +209,88 @@ class _History_card extends State<History_card>{
                       ),
                     )
                   ),
-                  Row(
-                    children: [
-                      Image(
-                        fit: BoxFit.contain,
-                        image: AssetImage("assets/img/pizza_card.png"),
-                        width: 120,
-                        height: 120,
-                      ),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Сырная пицца",
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 46, 46, 46),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                  Column(
+                    children: 
+                      List.generate(
+                        position_data.length, 
+                        (index){
+
+                          var data_pizza = Provider.of<Data_Pizza>(context).data_pizza;
+
+                          int image_int = position_data[index]["ID_PIZZA"];
+
+                          print(position_data[index]);
+
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 20),
+                            child:  Row(
+                              children: [
+                                Image(
+                                  fit: BoxFit.contain,
+                                  image: AssetImage("assets/img/pizza_cards/${data_pizza[image_int]["ID"]}.jpg"),
+                                  width: 120,
+                                  height: 120,
+                                ),
+                                SizedBox(width: 6),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "${data_pizza[image_int]["NAME"]}",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 46, 46, 46),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "${position_data[index]["SIZE"]} см, ${position_data[index]["TYPE_TESTO"]}\nдобавки (${position_data[index]["dops"].length})",
+                                        style: TextStyle(
+                                          color: const Color.fromARGB(255, 46, 46, 46),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${(position_data[index]["COST"]).truncate()} ₽",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: const Color.fromARGB(255, 46, 46, 46),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text(
+                                            "x${position_data[index]["COUNT"]}",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: const Color.fromARGB(255, 46, 46, 46),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(height: 5),
-                            Text(
-                              "30 см, Традиционный\nдобавки (3)",
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 46, 46, 46),
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "899 ₽",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 46, 46, 46),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                          );
+                        }
+                      )
                   ),
                   Padding(padding: EdgeInsets.only(top: 10)),
                   Container(
                     child: Text(
-                      "Итог: 899 ₽",
+                      "Итог: ${data[widget.id_order]["COST"]} ₽",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w500
@@ -240,7 +299,7 @@ class _History_card extends State<History_card>{
                   ),
                   Container(
                     child: Text(
-                      "Начисленно: 150 GodCoins",
+                      "Начисленно: ${data[widget.id_order]["COINS"]} GodCoins",
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500
@@ -254,7 +313,7 @@ class _History_card extends State<History_card>{
                       IconButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          star(1);
+                          star(1, data[widget.id_order]["ID"]);
                         },
                         icon: Icon(
                           stars_conf[0],
@@ -268,7 +327,7 @@ class _History_card extends State<History_card>{
                       IconButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          star(2);
+                          star(2, data[widget.id_order]["ID"]);
                         },
                         icon: Icon(
                           stars_conf[1],
@@ -282,7 +341,7 @@ class _History_card extends State<History_card>{
                       IconButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          star(3);
+                          star(3, data[widget.id_order]["ID"]);
                         },
                         icon: Icon(
                           stars_conf[2],
@@ -296,7 +355,7 @@ class _History_card extends State<History_card>{
                       IconButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          star(4);
+                          star(4, data[widget.id_order]["ID"]);
                         },
                         icon: Icon(
                           stars_conf[3],
@@ -310,7 +369,7 @@ class _History_card extends State<History_card>{
                       IconButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          star(5);
+                          star(5, data[widget.id_order]["ID"]);
                         },
                         icon: Icon(
                           stars_conf[4],

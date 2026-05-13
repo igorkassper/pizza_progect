@@ -43,9 +43,6 @@ class _New_password extends State<New_password>{
           }
         )
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('все заебись')),
-      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Проверьте подключение к инету')),

@@ -185,8 +185,6 @@ class _Account_rename extends State<Account_rename>{
               )
             ],
           )
-          
-           
         ),
     );
   }

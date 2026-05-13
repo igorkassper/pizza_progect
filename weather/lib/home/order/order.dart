@@ -33,7 +33,6 @@ class _Order extends State<Order> {
 
 
 
-
     if(len_data == 0){
       return Center(
         child:Column(
@@ -66,7 +65,6 @@ class _Order extends State<Order> {
             padding: EdgeInsets.all(16),
             children:
             List.generate(len_data, (index){
-
               return Container(
                 padding: EdgeInsets.only(bottom: 20),
                 child: Row(
@@ -189,10 +187,8 @@ class _Order extends State<Order> {
                                   ),
                                 ],
                               )
-                              
                             ],
                           )
-                          
                         ],
                       ),
                     ),
@@ -234,6 +230,9 @@ class _Order extends State<Order> {
                 Padding(padding: EdgeInsets.only(bottom: 10)),
                 ElevatedButton(
                   onPressed: (){
+                    
+                    context.read<Korzina>().sum_ren(sum.toString());
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -263,9 +262,6 @@ class _Order extends State<Order> {
               ],
             ),
           )
-              
-          
-          
         )
       ],
     );
