@@ -59,6 +59,16 @@ class _History_card extends State<History_card>{
 
     List position_data = data[widget.id_order]["position"];
 
+
+    String adress = "";
+    if(data[widget.id_order]["TYPE_ORDER"] == "Самовывоз"){
+      adress = data[widget.id_order]["ADRESS"];
+    } else{
+      adress = data[widget.id_order]["ADRESS"];
+      List list_adress = adress.split(",");
+      adress = "${list_adress[0]}";
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
         appBar: AppBar(
@@ -192,7 +202,7 @@ class _History_card extends State<History_card>{
                     )
                   ),
                   Text(
-                    "${data[widget.id_order]["ADRESS"]}, Новосибирск",
+                    "${adress}, Новосибирск",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// библиотека для создания масок ввода данных
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:weather/autification/register.dart';
 

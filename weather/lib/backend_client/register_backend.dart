@@ -34,8 +34,6 @@ class Register_back{
 
       final responseData = jsonDecode(response.body);
 
-      print(responseData);
-
       if (response.statusCode == 201) {
         print("успех");
         return {
@@ -63,8 +61,6 @@ class Register_back{
       };
     }
   }
-
-
 }
 
 

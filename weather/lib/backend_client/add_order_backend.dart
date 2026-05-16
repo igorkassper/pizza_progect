@@ -41,7 +41,6 @@ class Add_Order_back{
 
     } catch(e){
         print("провал");
-        print(e);
       return {
         "status":"error_fatal",
       };
