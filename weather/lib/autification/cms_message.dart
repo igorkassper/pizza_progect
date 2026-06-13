@@ -20,7 +20,7 @@ class _Cms extends State<Cms>{
           // стрелка назад на экран
           automaticallyImplyLeading: false,
           title: Text(
-            "Cms",
+            "Смс",
             style:TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -38,7 +38,7 @@ class _Cms extends State<Cms>{
                   // текст об вводе
                   Text(
                     textAlign: TextAlign.center,
-                    "Введите код\n из cmc",
+                    "Введите код\n из Смс",
                     style: TextStyle(
                       // color: Colors.white,
                       fontSize: 30,
@@ -55,11 +55,11 @@ class _Cms extends State<Cms>{
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "Код",
-                        labelText: 'Введите свой cmc код',
+                        labelText: 'Введите свой смс код',
                       ),
                       validator: (value){
                         if(value == null || value.isEmpty){
-                          return "Введите cms код";
+                          return "Введите смс код";
                         }
                         if(!value.contains(RegExp(r'[0-9]')) || value.length != 6){
                           return "Неверный код";
