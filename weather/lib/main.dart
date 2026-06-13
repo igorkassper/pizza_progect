@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(create: (context) => Order_give_provid()),
           ],
           child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(),
             home: Auth(),

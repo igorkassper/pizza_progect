@@ -135,7 +135,7 @@ class _Account extends State<Account>{
                     children: [
                       Padding(padding: EdgeInsets.only(left: 30)),
                       Text(
-                        "У вас есть доступные монеты",
+                        "Накопленные баллы",
                         style: TextStyle(
                           color: const Color.fromARGB(255, 46, 46, 46),
                           fontSize: 16,

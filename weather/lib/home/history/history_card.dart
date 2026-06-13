@@ -56,9 +56,17 @@ class _History_card extends State<History_card>{
     final data_order_give = context.watch<Order_give_provid>();
     List<dynamic> data = data_order_give.order_give;
 
+    List mas_month = ["Января", "Февраля", 
+                  "Марта", "Апреля", "Мая", "Июня", 
+                  "Июля", "Августа", "Сентября", "Октября", 
+                  "Ноября", "Декабря"];
+
 
     List position_data = data[widget.id_order]["position"];
 
+    String time_submission = data[widget.id_order]["TIME_SUBMISSION"];
+
+    List time_submission_parse = time_submission.split("-");
 
     String adress = "";
     if(data[widget.id_order]["TYPE_ORDER"] == "Самовывоз"){
@@ -145,6 +153,25 @@ class _History_card extends State<History_card>{
                   Padding(padding: EdgeInsets.only(top: 10)),
                   Container(
                     child: Text(
+                      "Время заказа",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
+                      ),
+                    )
+                  ),
+                  Container(
+                    child: Text(
+                      "${time_submission_parse[0]} ${mas_month[int.parse(time_submission_parse[1]) - 1]} ${time_submission_parse[3]}:${time_submission_parse[4]}",
+                      style: TextStyle(
+                        fontSize: 15,
+                        // fontWeight: FontWeight.w500
+                      ),
+                    )
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 1)),
+                  Container(
+                    child: Text(
                       "Статус заказа",
                       style: TextStyle(
                         fontSize: 20,
@@ -229,8 +256,6 @@ class _History_card extends State<History_card>{
                           var data_pizza = Provider.of<Data_Pizza>(context).data_pizza;
 
                           int image_int = position_data[index]["ID_PIZZA"];
-
-                          print(position_data[index]);
 
                           return Padding(
                             padding: EdgeInsets.only(bottom: 20),

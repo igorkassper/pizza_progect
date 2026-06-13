@@ -176,7 +176,7 @@ class _Home extends State<Home>{
                 tabs: [
                   Tab(
                     icon: Icon(Icons.local_pizza,),
-                    text: "Пицца",
+                    text: "Каталог",
                   ),
                   Tab(
                     icon: Icon(Icons.history),
