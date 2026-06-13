@@ -202,6 +202,7 @@ class _History_card extends State<History_card>{
                     )
                   ),
                   Text(
+                    overflow: TextOverflow.visible,
                     "${adress}, Новосибирск",
                     style: TextStyle(
                       fontSize: 15,
@@ -237,7 +238,7 @@ class _History_card extends State<History_card>{
                               children: [
                                 Image(
                                   fit: BoxFit.contain,
-                                  image: AssetImage("assets/img/pizza_cards/${data_pizza[image_int]["ID"]}.jpg"),
+                                  image: AssetImage("assets/img/pizza_cards/${data_pizza[image_int]["ID"]}.png"),
                                   width: 120,
                                   height: 120,
                                 ),
@@ -316,6 +317,16 @@ class _History_card extends State<History_card>{
                       ),
                     )
                   ),
+                  // Padding(padding: EdgeInsets.only(top: 10)),
+                  Container(
+                    child: Text(
+                      "Использовано: ${data[widget.id_order]["MINUS_COINS"]} GodCoins",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      ),
+                    )
+                  ),
                   Padding(padding: EdgeInsets.only(top: 10)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -328,7 +339,7 @@ class _History_card extends State<History_card>{
                         icon: Icon(
                           stars_conf[0],
                           color: Colors.amber,
-                          size: 50,
+                          size: 30,
                         ),
                         style: ElevatedButton.styleFrom(
                           overlayColor: const Color.fromARGB(0, 46, 46, 46),
@@ -342,7 +353,7 @@ class _History_card extends State<History_card>{
                         icon: Icon(
                           stars_conf[1],
                           color: Colors.amber,
-                          size: 50,
+                          size: 30,
                         ),
                         style: ElevatedButton.styleFrom(
                           overlayColor: const Color.fromARGB(0, 46, 46, 46),
@@ -356,7 +367,7 @@ class _History_card extends State<History_card>{
                         icon: Icon(
                           stars_conf[2],
                           color: Colors.amber,
-                          size: 50,
+                          size: 30,
                         ),
                         style: ElevatedButton.styleFrom(
                           overlayColor: const Color.fromARGB(0, 46, 46, 46),
@@ -370,7 +381,7 @@ class _History_card extends State<History_card>{
                         icon: Icon(
                           stars_conf[3],
                           color: Colors.amber,
-                          size: 50,
+                          size: 30,
                         ),
                         style: ElevatedButton.styleFrom(
                           overlayColor: const Color.fromARGB(0, 46, 46, 46),
@@ -384,7 +395,7 @@ class _History_card extends State<History_card>{
                         icon: Icon(
                           stars_conf[4],
                           color: Colors.amber,
-                          size: 50,
+                          size: 30,
                         ),
                         style: ElevatedButton.styleFrom(
                           overlayColor: const Color.fromARGB(0, 46, 46, 46),

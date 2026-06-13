@@ -31,13 +31,15 @@ class _Account_email extends State<Account_email>{
       );
     }
   }
-  
+
+  late TextEditingController _emailform;
+
   @override
   Widget build(BuildContext context) {
 
-    final email = context.watch<Data_User_Provid>();
+    final email = context.read<Data_User_Provid>();
 
-    final TextEditingController _emailform = TextEditingController(text: "${email.email}");
+    _emailform = TextEditingController(text: "${email.email}");
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -130,7 +132,7 @@ class _Account_email extends State<Account_email>{
           ) 
         ),
         bottomNavigationBar: Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 100),
           child: Row(
             children: [
               Expanded(

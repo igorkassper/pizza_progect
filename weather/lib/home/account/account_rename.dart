@@ -33,13 +33,27 @@ class _Account_rename extends State<Account_rename>{
     }
   }
   
+  
+  late TextEditingController _nameform;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameform = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Обновляем текст контроллера при изменении данных
+    final name = context.read<Data_User_Provid>();
+    _nameform.text = name.name;
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
-
-    final name = context.watch<Data_User_Provid>();
-
-    final TextEditingController _nameform = TextEditingController(text: "${name.name}");
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -131,7 +145,7 @@ class _Account_rename extends State<Account_rename>{
           ) 
         ),
         bottomNavigationBar: Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 100),
           child: Row(
             children: [
               Expanded(

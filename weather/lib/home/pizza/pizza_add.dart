@@ -264,7 +264,7 @@ class _Pizza_add extends State<Pizza_add>{
               Padding(padding:EdgeInsets.only(top: 20)),
               Image(
                 fit: BoxFit.contain,
-                image: AssetImage("assets/img/pizza_cards/${widget.user_id+1}.jpg",)
+                image: AssetImage("assets/img/pizza_cards/${widget.user_id+1}.png",)
               ),
               Container(
                 padding: EdgeInsets.only(left: 10,),
@@ -508,7 +508,7 @@ class _Pizza_add extends State<Pizza_add>{
                               children: [
                                 Image(
                                   fit: BoxFit.contain,
-                                  image: AssetImage("assets/img/dop/${index+1}.jpg",),
+                                  image: AssetImage("assets/img/dop/${index+1}.png",),
                                   width: 80,
                                   height: 80,
                                 ),
@@ -542,7 +542,7 @@ class _Pizza_add extends State<Pizza_add>{
           ],
         ),
         bottomNavigationBar: Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(left: 20, right: 20, bottom: 50, top: 30),
           child: ElevatedButton(
             onPressed: (){
 

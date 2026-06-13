@@ -11,17 +11,14 @@ import 'package:weather/provid/order_give_provid.dart';
 import 'autification/auth.dart';
 import 'home/home.dart';
 
+import 'package:weather/provid/reset_provid.dart';
+
+
 void main() {
   runApp(
-    MultiProvider(  // Если провайдеров несколько
-      providers: [
-        ChangeNotifierProvider(create: (context) => Data_User_Provid()),
-        ChangeNotifierProvider(create: (context) => KorzinaPlus()),
-        ChangeNotifierProvider(create: (context) => Data_Pizza()),
-        ChangeNotifierProvider(create: (context) => Data_Subliments()),
-        ChangeNotifierProvider(create: (context) => Korzina()),
-        ChangeNotifierProvider(create: (context) => Order_give_provid()),
-      ],
+    // Сначала создаем провайдер для сброса (один, который не будет очищаться)
+    ChangeNotifierProvider(
+      create: (context) => Resetprovider(),
       child: MyApp(),
     )
   );
@@ -32,12 +29,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-      ),
-      home: Home(),
-      // home: Auth(),
+    return Consumer<Resetprovider>(
+      builder: (context, appReset, child) {
+        // MultiProvider ВНУТРИ Consumer, чтобы пересоздаваться при смене ключа
+        return MultiProvider(
+          key: ValueKey(appReset.resetKey),
+          providers: [
+            // Все провайдеры, которые нужно очищать при выходе
+            ChangeNotifierProvider(create: (context) => Data_User_Provid()),
+            ChangeNotifierProvider(create: (context) => KorzinaPlus()),
+            ChangeNotifierProvider(create: (context) => Data_Pizza()),
+            ChangeNotifierProvider(create: (context) => Data_Subliments()),
+            ChangeNotifierProvider(create: (context) => Korzina()),
+            ChangeNotifierProvider(create: (context) => Order_give_provid()),
+          ],
+          child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(),
+            home: Auth(),
+          ),
+        );
+      },
     );
   }
 }

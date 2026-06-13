@@ -26,6 +26,16 @@ final timeFormatter = MaskTextInputFormatter(
 
 
 bool formatadress(String input) {
+  final regex = RegExp(r'^(?=.*[а-яА-ЯёЁ])(?=.*[0-9])[а-яА-ЯёЁ0-9\s-]+$');
+  return regex.hasMatch(input);
+}
+
+bool formatadress_all(String input) {
+  final regex = RegExp(r'^\d+$');
+  return regex.hasMatch(input);
+}
+
+bool formatadress_domofon(String input) {
   final regex = RegExp(r'^[а-яА-ЯёЁ0-9\s]+$');
   return regex.hasMatch(input);
 }
@@ -46,8 +56,8 @@ class _Delivery extends State<Delivery> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 7)),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData(
@@ -99,10 +109,6 @@ class _Delivery extends State<Delivery> {
       });
     }
   }
-
-
-  
-
 
 
   List<Color> check_2 = [
@@ -201,6 +207,7 @@ class _Delivery extends State<Delivery> {
                     ) 
                   ),
                   TextField(
+                    readOnly: true, 
                     controller: _dateController,
                     inputFormatters: [dateFormatter],
                     decoration: InputDecoration(
@@ -214,6 +221,7 @@ class _Delivery extends State<Delivery> {
                     ),
                   ),
                   TextField(
+                    readOnly: true, 
                     controller: _timeController,
                     inputFormatters: [timeFormatter],
                     decoration: InputDecoration(
@@ -264,7 +272,7 @@ class _Delivery extends State<Delivery> {
                               if(value == null || value.isEmpty){
                                 return "Введите номер подъезда";
                               }
-                              if(!formatadress(value)){
+                              if(!formatadress_all(value)){
                                 return "Не верный формат данных";
                               }
                               adress2 = value;
@@ -285,7 +293,7 @@ class _Delivery extends State<Delivery> {
                               if(value == null || value.isEmpty){
                                 return "Введите номер этажа";
                               }
-                              if(!formatadress(value)){
+                              if(!formatadress_all(value)){
                                 return "Не верный формат данных";
                               }
                               adress3 = value;
@@ -306,7 +314,7 @@ class _Delivery extends State<Delivery> {
                               if(value == null || value.isEmpty){
                                 return "Введите название квартиры или офиса";
                               }
-                              if(!formatadress(value)){
+                              if(!formatadress_all(value)){
                                 return "Не верный формат данных";
                               }
                               adress4 = value;
@@ -327,7 +335,7 @@ class _Delivery extends State<Delivery> {
                               if(value == null || value.isEmpty){
                                 return "Введите номер домофона";
                               }
-                              if(!formatadress(value)){
+                              if(!formatadress_domofon(value)){
                                 return "Не верный формат данных";
                               }
                               adress5 = value;
@@ -358,13 +366,16 @@ class _Delivery extends State<Delivery> {
                             ),
                             validator: (value){
                               if(value == null || value.isEmpty){
-                                return "Введите номер домофона";
+                                return "Введите количество баллов\nили 0 если не нужно списывать";
                               }
                               if(!RegExp(r'^\d+$').hasMatch(value)){
                                 return "Не верный формат данных";
                               }
                               if(int.parse(value) > int.parse(data.coins)){
                                 return "Нельзя списать баллов больше";
+                              }
+                              if(int.parse(value) > int.parse(sum_order)){
+                                return "Нельзя списать баллов больше чем сумма заказа";
                               }
                               coins_minus = value;
                               return null;
@@ -508,6 +519,21 @@ class _Delivery extends State<Delivery> {
                               );
                               status = 1;
                             }
+
+
+                            // DateTime today = DateTime.now();
+                            // DateTime data_date = DateTime(year, month, day).add(Duration(minutes: 60));
+
+                            // if(!data_date.isAfter(today)){
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     SnackBar(content: Text('Это прошлое')),
+                            //   );
+                            // }
+
+
+
+
+
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Не верный формат даты')),

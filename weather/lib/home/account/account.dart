@@ -8,6 +8,13 @@ import 'package:weather/provid/data_user_provid.dart';
 
 import 'package:visibility_detector/visibility_detector.dart';
 
+// для отчистки
+import 'package:weather/provid/reset_provid.dart';
+
+
+
+
+
 
 class Account extends StatefulWidget { 
   const Account({super.key});
@@ -23,8 +30,8 @@ class _Account extends State<Account>{
 
   Future<void> _loading_data() async{
 
-    // String user_id = context.read<Data_User_Provid>().user_id;
-    String user_id = "3";
+    String user_id = context.read<Data_User_Provid>().user_id;
+    // String user_id = "3";
 
     
     final res = await Give_data_accoun_back.res(user_id);
@@ -360,6 +367,9 @@ class _Account extends State<Account>{
                             ),
                             TextButton(
                               onPressed: () {
+
+                                Provider.of<Resetprovider>(context, listen: false).logout();
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -417,25 +427,6 @@ class _Account extends State<Account>{
               ),
             ],
           ),
-          // Container(
-          //   height: 100,
-          //   alignment: Alignment.center,
-          //   child: ElevatedButton(
-          //     style: ElevatedButton.styleFrom(
-          //       backgroundColor: Color.fromARGB(255, 248, 248, 248),
-          //       shadowColor: Color.fromARGB(0, 255, 255, 255),
-          //       overlayColor: Color.fromARGB(255, 158, 158, 158),
-          //       padding: EdgeInsets.all(20),
-          //     ),
-          //     onPressed: (){},
-          //     child: Text(
-          //       "Удалить аккаунт",
-          //       style: TextStyle(
-          //         color: const Color.fromARGB(255, 46, 46, 46),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       )
     )

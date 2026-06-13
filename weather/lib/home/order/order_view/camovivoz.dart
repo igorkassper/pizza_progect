@@ -44,8 +44,8 @@ class _Camovivoz extends State<Camovivoz> {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 7)),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData(
@@ -200,6 +200,7 @@ class _Camovivoz extends State<Camovivoz> {
                   ),
                   
                   TextField(
+                    readOnly: true, 
                     controller: _dateController,
                     inputFormatters: [dateFormatter],
                     decoration: InputDecoration(
@@ -213,6 +214,7 @@ class _Camovivoz extends State<Camovivoz> {
                     ),
                   ),
                   TextField(
+                    readOnly: true, 
                     controller: _timeController,
                     inputFormatters: [timeFormatter],
                     decoration: InputDecoration(
@@ -285,13 +287,16 @@ class _Camovivoz extends State<Camovivoz> {
                             ),
                             validator: (value){
                               if(value == null || value.isEmpty){
-                                return "Введите номер домофона";
+                                return "Введите количество баллов\nили 0 если не нужно списывать";
                               }
                               if(!RegExp(r'^\d+$').hasMatch(value)){
                                 return "Не верный формат данных";
                               }
                               if(int.parse(value) > int.parse(data.coins)){
                                 return "Нельзя списать баллов больше";
+                              }
+                               if(int.parse(value) > int.parse(sum_order)){
+                                return "Нельзя списать баллов больше чем сумма заказа";
                               }
                               coins_minus = value;
                               return null;

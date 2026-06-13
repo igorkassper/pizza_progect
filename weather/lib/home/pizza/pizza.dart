@@ -48,6 +48,22 @@ class _Pizza extends State<Pizza> {
     int data_len = data.data_pizza.length;
     var data_parce = data.data_pizza;
 
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    late double fontsizecost;
+    late double fontsize_name;
+    late double fontsize_button;
+
+    if(screenWidth <= 300){
+      fontsizecost = 16;
+      fontsize_name = 16;
+      fontsize_button = 13;
+    } else{
+      fontsizecost = 18;
+      fontsize_name = 18;
+      fontsize_button = 15;
+    }
+
 
     if(loading == false){
       return VisibilityDetector(
@@ -88,7 +104,7 @@ class _Pizza extends State<Pizza> {
                   children: [
                     Image(
                       fit: BoxFit.contain,
-                      image: AssetImage("assets/img/pizza_cards/${index+1}.jpg",)
+                      image: AssetImage("assets/img/pizza_cards/${index+1}.png",)
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 10,),
@@ -98,7 +114,7 @@ class _Pizza extends State<Pizza> {
                         style: TextStyle(
                           color: const Color.fromARGB(255, 48, 48, 48),
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: fontsize_name,
                         ),
                       ),
                     ),
@@ -125,7 +141,7 @@ class _Pizza extends State<Pizza> {
                             style: TextStyle(
                               color: const Color.fromARGB(255, 46, 46, 46),
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: fontsizecost,
                             ),
                           ),
                         ),
@@ -152,7 +168,7 @@ class _Pizza extends State<Pizza> {
                                 "Выбрать",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: fontsize_button,
                                 ),
                               ),
                             ) 

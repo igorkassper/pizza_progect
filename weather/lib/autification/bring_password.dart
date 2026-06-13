@@ -77,90 +77,92 @@ class _Bring_Pass extends State<Bring_Pass>{
         // форма
         child: Form(
             key: _fornKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // ввод номера телефона
-                
-                Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
-                  width: 350,
-                  child: TextFormField(
-                    inputFormatters: [phoneFormatter],
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      icon: Icon(Icons.phone),
-                      hintText: "+7",
-                      labelText: 'Введите свой номер телефона',
-                    ),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
-                        return "Введите номер телефона";
-                      }
-                       if (value.replaceAll(RegExp(r'[^0-9]'), '').length != 11) {
-                        return 'Введите полный номер';
-                      }
-                      numberPhone = value;
-                      return null;
-                    },
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // ввод номера телефона
+                  
+                  Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
+                    width: 350,
+                    child: TextFormField(
+                      inputFormatters: [phoneFormatter],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        icon: Icon(Icons.phone),
+                        hintText: "+7",
+                        labelText: 'Введите свой номер телефона',
+                      ),
+                      validator: (value){
+                        if(value == null || value.isEmpty){
+                          return "Введите номер телефона";
+                        }
+                        if (value.replaceAll(RegExp(r'[^0-9]'), '').length != 11) {
+                          return 'Введите полный номер';
+                        }
+                        numberPhone = value;
+                        return null;
+                      },
 
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 223, 48, 47),
                     ),
-                    onPressed: (){
-                      if(_fornKey.currentState!.validate()){
-                        bring_password_post();
-                      }
-                    },
-                    child:Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Отправить",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
+                  ),
+                  Container(
+                    alignment: Alignment.topCenter,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 223, 48, 47),
+                      ),
+                      onPressed: (){
+                        if(_fornKey.currentState!.validate()){
+                          bring_password_post();
+                        }
+                      },
+                      child:Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "Отправить",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.all(10)),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 243, 243, 247),
-                    shadowColor: Color.fromARGB(255, 255, 255, 255),
-                    overlayColor: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                  child:Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.keyboard_arrow_left,
-                          color: Color.fromARGB(255, 48, 48, 48),
-                        ),
-                        Text(
-                          "  Назад  ",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 48, 48, 48),
-                            fontSize: 17
-                          ),
-                        ),
-                      ],
+                  Padding(padding: EdgeInsets.all(10)),
+                  ElevatedButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 243, 243, 247),
+                      shadowColor: Color.fromARGB(255, 255, 255, 255),
+                      overlayColor: Color.fromARGB(255, 255, 255, 255),
                     ),
-                  ) 
-                ),
-                Padding(padding: EdgeInsets.all(30))
-              ],
+                    child:Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.keyboard_arrow_left,
+                            color: Color.fromARGB(255, 48, 48, 48),
+                          ),
+                          Text(
+                            "  Назад  ",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 48, 48, 48),
+                              fontSize: 17
+                            ),
+                          ),
+                        ],
+                      ),
+                    ) 
+                  ),
+                  Padding(padding: EdgeInsets.all(30))
+                ],
+              ),
             )
           ),
         )

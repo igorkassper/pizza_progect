@@ -58,9 +58,9 @@ class _Home extends State<Home>{
     Future<void> _loading_data() async{
 
       // вот это раскоментить надо
-      // String user_id = context.read<Data_User_Provid>().user_id;
+      String user_id = context.read<Data_User_Provid>().user_id;
       // это вариант заглушка
-      String user_id = "3";
+      // String user_id = "3";
 
       final res = await Give_data_accoun_back.res(user_id);
 
@@ -95,6 +95,16 @@ class _Home extends State<Home>{
       
       _loading_data();
 
+      final screenWidth = MediaQuery.of(context).size.width;
+
+      late double text_button_bar;
+
+      if(screenWidth <= 325){
+        text_button_bar = 8;
+      } else{
+        text_button_bar = 10;
+      }
+
       if(loading == false){
         return Scaffold(
           backgroundColor: Colors.white,
@@ -127,75 +137,76 @@ class _Home extends State<Home>{
       }
       return DefaultTabController(
         length: 4, 
-        child: Scaffold(
-          appBar: AppBar(
-          automaticallyImplyLeading: false,
-            title: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                    Image(
-                      fit: BoxFit.cover,
-                      height: 50,
-                      image: AssetImage("assets/img/pizza.png",)
-                    ),
-                    Text(
-                      "PizzaGod",
-                      style:TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+        child: PopScope(
+          child: Scaffold(
+            appBar: AppBar(
+            automaticallyImplyLeading: false,
+              title: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                      Image(
+                        fit: BoxFit.cover,
+                        height: 50,
+                        image: AssetImage("assets/img/pizza.png",)
                       ),
-                    ),
-                ],
-              )
-              
-            ),
-              
-            backgroundColor: const Color.fromARGB(255, 223, 48, 47),
-          ),
-          bottomNavigationBar: BottomAppBar(
-            color: const Color.fromARGB(255, 223, 48, 47),
-            child: TabBar(
-              // радиус при наведении
-              splashBorderRadius: BorderRadius.circular(10),
-              labelStyle:TextStyle(
-                fontSize: 10,
-              ),
-              dividerHeight: 0,
-              labelColor: Colors.white,
-              indicatorColor: Colors.white,
-              unselectedLabelColor: Colors.white,
-              tabs: [
-                Tab(
-                  icon: Icon(Icons.local_pizza,),
-                  text: "Пицца",
-                ),
-                Tab(
-                  icon: Icon(Icons.history),
-                  text: "История",
-                ),
-                Tab(
-                  icon: icon_baidge(korzina.count),
-                  text: "Корзина",
-                ),
-                Tab(
-                  icon: Icon(Icons.account_circle),
-                  text: "Аккаунт",
+                      Text(
+                        "PizzaGod",
+                        style:TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                  ],
                 )
+                
+              ),
+                
+              backgroundColor: const Color.fromARGB(255, 223, 48, 47),
+            ),
+            bottomNavigationBar: BottomAppBar(
+              color: const Color.fromARGB(255, 223, 48, 47),
+              child: TabBar(
+                // радиус при наведении
+                splashBorderRadius: BorderRadius.circular(10),
+                labelStyle:TextStyle(
+                  fontSize: text_button_bar,
+                ),
+                dividerHeight: 0,
+                labelColor: Colors.white,
+                indicatorColor: Colors.white,
+                unselectedLabelColor: Colors.white,
+                tabs: [
+                  Tab(
+                    icon: Icon(Icons.local_pizza,),
+                    text: "Пицца",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.history),
+                    text: "История",
+                  ),
+                  Tab(
+                    icon: icon_baidge(korzina.count),
+                    text: "Корзина",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.account_circle),
+                    text: "Аккаунт",
+                  )
+                ]
+              ),
+            ),
+            body: TabBarView(
+              children: [
+                Pizza(),
+                History(),
+                Order(),
+                Account()
               ]
             ),
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
           ),
-          body: TabBarView(
-            children: [
-              Pizza(),
-              History(),
-              Order(),
-              Account()
-            ]
-          ),
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        ),
-        
+        )
       );
     }
 }

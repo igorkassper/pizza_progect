@@ -32,6 +32,16 @@ class _Order extends State<Order> {
     }
 
 
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    late double text_button_zakaz_ofrm;
+
+    if(screenWidth <= 310){
+      text_button_zakaz_ofrm = 14;
+    } else{
+      text_button_zakaz_ofrm = 16;
+    }
+
 
     if(len_data == 0){
       return Center(
@@ -62,7 +72,7 @@ class _Order extends State<Order> {
       children: [
         Center(
           child: ListView(
-            padding: EdgeInsets.all(16),
+            padding:EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 120),
             children:
             List.generate(len_data, (index){
               return Container(
@@ -71,9 +81,9 @@ class _Order extends State<Order> {
                   children: [
                     Image(
                       fit: BoxFit.contain,
-                      image: AssetImage("assets/img/pizza_cards/${data[index]["id_pizza"]+1}.jpg"),
-                      width: 120,
-                      height: 120,
+                      image: AssetImage("assets/img/pizza_cards/${data[index]["id_pizza"]+1}.png"),
+                      width: 100,
+                      height: 100,
                     ),
                     SizedBox(width: 6),
                     Expanded(
@@ -84,14 +94,17 @@ class _Order extends State<Order> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "${data_pizza[data[index]["id_pizza"]]["NAME"]}",
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 46, 46, 46),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                              Flexible(
+                                child: Text(
+                                  "${data_pizza[data[index]["id_pizza"]]["NAME"]}",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 46, 46, 46),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -203,7 +216,7 @@ class _Order extends State<Order> {
           child: Container(
             padding: EdgeInsets.all(20),
             color: Color.fromARGB(230, 255, 255, 255),
-            height: 120,
+            height: 130,
             child: Column(
               children: [
                 Row(
@@ -253,7 +266,7 @@ class _Order extends State<Order> {
                     child: Text(
                       "Перейти к оформлению",
                         style:TextStyle(
-                          fontSize: 16,
+                          fontSize: text_button_zakaz_ofrm,
                           color: Colors.white,
                         )
                     ),

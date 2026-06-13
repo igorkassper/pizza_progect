@@ -105,7 +105,7 @@ class _History extends State<History>{
                         fontWeight: FontWeight.bold
                       ),
                     ),
-                    subtitle: Text("${int.parse(date_create[2])} ${mas_month[month-1]}, ${int.parse(date_create[3])}:${int.parse(date_create[4])}"),
+                    subtitle: Text("${int.parse(date_create[2])} ${mas_month[month-1]}, ${date_create[3].trim()}:${date_create[4]}"),
                     trailing: Icon(Icons.arrow_forward),
                     onTap: () {
                       Navigator.push(

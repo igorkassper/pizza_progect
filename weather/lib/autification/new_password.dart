@@ -67,108 +67,109 @@ class _New_password extends State<New_password>{
       ),
       body: Center(
         // форма
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Form(
-            key: _fornKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // ввод номера пароля
-                Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
-                  width: 350,
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border:OutlineInputBorder(),
-                      hintText: "Пароль",
-                      labelText: 'Введите свой пароль',
-                      icon: Icon(Icons.password),
-                      
+                Form(
+                key: _fornKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // ввод номера пароля
+                    Container(
+                      padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
+                      width: 350,
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border:OutlineInputBorder(),
+                          hintText: "Пароль",
+                          labelText: 'Введите свой пароль',
+                          icon: Icon(Icons.password),
+                          
+                        ),
+                        validator: (value){
+                          if(value == null || value.isEmpty){
+                            return "Введите пароль";
+                          }
+                            if(
+                              value.length < 10 || 
+                              !value.contains(RegExp(r'[A-Z]')) || 
+                              !value.contains(RegExp(r'[a-z]')) || 
+                              !value.contains(RegExp(r'[0-9]'))
+                            ){
+                            return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
+                          }
+                          password = value;
+                          return null;
+                        },
+                      ),
                     ),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
-                        return "Введите пароль";
-                      }
-                        if(
-                          value.length < 10 || 
-                          !value.contains(RegExp(r'[A-Z]')) || 
-                          !value.contains(RegExp(r'[a-z]')) || 
-                          !value.contains(RegExp(r'[0-9]'))
-                        ){
-                        return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
-                      }
-                      password = value;
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
-                  width: 350,
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border:OutlineInputBorder(),
-                      hintText: "Пароль",
-                      labelText: 'Введите свой пароль повторно',
-                      icon: Icon(Icons.password),
-                      
+                    Container(
+                      padding: EdgeInsets.only(top: 20, bottom: 20, right: 16, left: 16),
+                      width: 350,
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border:OutlineInputBorder(),
+                          hintText: "Пароль",
+                          labelText: 'Введите свой пароль повторно',
+                          icon: Icon(Icons.password),
+                          
+                        ),
+                        validator: (value){
+                          if(value == null || value.isEmpty){
+                            return "Введите пароль повторно";
+                          }
+                            if(
+                              value.length < 10 || 
+                              !value.contains(RegExp(r'[A-Z]')) || 
+                              !value.contains(RegExp(r'[a-z]')) || 
+                              !value.contains(RegExp(r'[0-9]'))
+                            ){
+                            return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
+                          }
+                          if(password != value){
+                            return "Пароли не совпадают";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                    validator: (value){
-                      if(value == null || value.isEmpty){
-                        return "Введите пароль повторно";
-                      }
-                        if(
-                          value.length < 10 || 
-                          !value.contains(RegExp(r'[A-Z]')) || 
-                          !value.contains(RegExp(r'[a-z]')) || 
-                          !value.contains(RegExp(r'[0-9]'))
-                        ){
-                        return "Пароль должен содержать:\n - 10 символов или более\n - Заглавные буквы\n - Строчные буквы\n - Цифры";
-                      }
-                      if(password != value){
-                        return "Пароли не совпадают";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                // кнопка для отправки данных
-                Padding(padding: EdgeInsets.all(5)),
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 223, 48, 47),
-                    ),
-                    onPressed: (){
-                      if(_fornKey.currentState!.validate()){
-                        new_password_post();
-                      }
-                    },
-                    child:Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Отправить",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
+                    // кнопка для отправки данных
+                    Padding(padding: EdgeInsets.all(5)),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 223, 48, 47),
+                        ),
+                        onPressed: (){
+                          if(_fornKey.currentState!.validate()){
+                            new_password_post();
+                          }
+                        },
+                        child:Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            "Отправить",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.all(30))
-              ],
-            )
+                    Padding(padding: EdgeInsets.all(30))
+                  ],
+                )
+              ),
+            ],
           ),
-        ],
-      )  
+        )
       ),
     );
   }
-  
 }

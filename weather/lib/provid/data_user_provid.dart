@@ -50,4 +50,5 @@ class Data_User_Provid extends ChangeNotifier {
     _coins = coins;
     notifyListeners(); 
   }
+
 }

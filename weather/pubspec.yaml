@@ -70,29 +70,29 @@ flutter:
     - assets/db/users.json
     - assets/img/account.jpg
     - assets/img/free-icon-font-coins.png
-    - assets/img/pizza_cards/1.jpg
-    - assets/img/pizza_cards/2.jpg
-    - assets/img/pizza_cards/3.jpg
-    - assets/img/pizza_cards/4.jpg
-    - assets/img/pizza_cards/5.jpg
-    - assets/img/pizza_cards/6.jpg
-    - assets/img/pizza_cards/7.jpg
-    - assets/img/pizza_cards/8.jpg
-    - assets/img/pizza_cards/9.jpg
-    - assets/img/pizza_cards/10.jpg
-    - assets/img/pizza_cards/11.jpg
-    - assets/img/pizza_cards/12.jpg
-    - assets/img/pizza_cards/13.jpg
-    - assets/img/dop/1.jpg
-    - assets/img/dop/2.jpg
-    - assets/img/dop/3.jpg
-    - assets/img/dop/4.jpg
-    - assets/img/dop/5.jpg
-    - assets/img/dop/6.jpg
-    - assets/img/dop/7.jpg
-    - assets/img/dop/8.jpg
-    - assets/img/dop/9.jpg
-    - assets/img/dop/10.jpg
+    - assets/img/pizza_cards/1.png
+    - assets/img/pizza_cards/2.png
+    - assets/img/pizza_cards/3.png
+    - assets/img/pizza_cards/4.png
+    - assets/img/pizza_cards/5.png
+    - assets/img/pizza_cards/6.png
+    - assets/img/pizza_cards/7.png
+    - assets/img/pizza_cards/8.png
+    - assets/img/pizza_cards/9.png
+    - assets/img/pizza_cards/10.png
+    - assets/img/pizza_cards/11.png
+    - assets/img/pizza_cards/12.png
+    - assets/img/pizza_cards/13.png
+    - assets/img/dop/1.png
+    - assets/img/dop/2.png
+    - assets/img/dop/3.png
+    - assets/img/dop/4.png
+    - assets/img/dop/5.png
+    - assets/img/dop/6.png
+    - assets/img/dop/7.png
+    - assets/img/dop/8.png
+    - assets/img/dop/9.png
+    - assets/img/dop/10.png
     - assets/img/korzina_pusta_icon.png
     - assets/img/empty.png
 
