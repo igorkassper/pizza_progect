@@ -57,10 +57,7 @@ class _Home extends State<Home>{
 
     Future<void> _loading_data() async{
 
-      // вот это раскоментить надо
       String user_id = context.read<Data_User_Provid>().user_id;
-      // это вариант заглушка
-      // String user_id = "3";
 
       final res = await Give_data_accoun_back.res(user_id);
 

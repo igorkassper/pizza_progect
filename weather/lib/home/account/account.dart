@@ -31,7 +31,6 @@ class _Account extends State<Account>{
   Future<void> _loading_data() async{
 
     String user_id = context.read<Data_User_Provid>().user_id;
-    // String user_id = "3";
 
     
     final res = await Give_data_accoun_back.res(user_id);
@@ -343,7 +342,7 @@ class _Account extends State<Account>{
                     visualDensity: VisualDensity.compact,
                     minimumSize: Size.zero,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0), // Указываем радиус
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     fixedSize: Size(double.infinity, 60),
                   ),

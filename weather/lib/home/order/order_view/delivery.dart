@@ -520,20 +520,6 @@ class _Delivery extends State<Delivery> {
                               status = 1;
                             }
 
-
-                            // DateTime today = DateTime.now();
-                            // DateTime data_date = DateTime(year, month, day).add(Duration(minutes: 60));
-
-                            // if(!data_date.isAfter(today)){
-                            //   ScaffoldMessenger.of(context).showSnackBar(
-                            //     SnackBar(content: Text('Это прошлое')),
-                            //   );
-                            // }
-
-
-
-
-
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Не верный формат даты')),

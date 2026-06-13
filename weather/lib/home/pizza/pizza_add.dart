@@ -81,20 +81,15 @@ class _Pizza_add extends State<Pizza_add>{
             break;
           case 1:
             cost = (base_cost * 1.2).toInt();
-            // print("1");
             break;
           case 2:
             cost = (base_cost * 2).toInt();
-            print("2");
             break;
           case 3:
             cost = (base_cost * 2.5).toInt();
-            // print("3");
             break;
           case 4:
             cost = (base_cost * 3).toInt();
-            // print("4");
-
             break;
           case 5:
             cost = (base_cost * 4).toInt();
@@ -501,7 +496,7 @@ class _Pizza_add extends State<Pizza_add>{
                               shadowColor: Color.fromARGB(0, 223, 48, 47),
                               overlayColor: Color.fromARGB(0, 84, 84, 84),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0), // Указываем радиус
+                                borderRadius: BorderRadius.circular(20.0),
                               ),
                             ),
                             child: Column(

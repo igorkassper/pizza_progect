@@ -16,7 +16,6 @@ import 'package:weather/provid/reset_provid.dart';
 
 void main() {
   runApp(
-    // Сначала создаем провайдер для сброса (один, который не будет очищаться)
     ChangeNotifierProvider(
       create: (context) => Resetprovider(),
       child: MyApp(),
@@ -31,11 +30,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Resetprovider>(
       builder: (context, appReset, child) {
-        // MultiProvider ВНУТРИ Consumer, чтобы пересоздаваться при смене ключа
         return MultiProvider(
           key: ValueKey(appReset.resetKey),
           providers: [
-            // Все провайдеры, которые нужно очищать при выходе
             ChangeNotifierProvider(create: (context) => Data_User_Provid()),
             ChangeNotifierProvider(create: (context) => KorzinaPlus()),
             ChangeNotifierProvider(create: (context) => Data_Pizza()),
